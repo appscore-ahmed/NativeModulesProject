@@ -1,10 +1,10 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image, Button, Alert } from 'react-native';
+import {Text, View, StyleSheet, Image, Button, Alert} from 'react-native';
 import NativeModule from '../CustomModules';
 
 const CameraScreen = () => {
   const [imageSource, setImageSource] = React.useState<string>(
-    'file:///storage/emulated/0/Pictures/Title.jpg'
+    '',
   );
   const [text, setText] = React.useState<string | undefined>();
 
@@ -24,8 +24,12 @@ const CameraScreen = () => {
         }}
       />
       <Image
-        // style={styles.stretch}
-        source={{ uri: imageSource, width: 200, height: 200 }}
+        style={styles.stretch}
+        source={{uri: imageSource}}
+        onLoadEnd={() => {
+          console.log('loaded');
+        }}
+        onError={console.log}
       />
     </View>
   );
