@@ -5,7 +5,7 @@ import {
   NavigationScreenProp,
   NavigationState,
 } from 'react-navigation';
-import {getHardwareInfo, getNetworkStatus} from '../native_module/DeviceInfo';
+import {getHardwareInfo, getNetworkStatus, getDisplay} from '../native_module/DeviceInfo';
 import {useNavigation} from '../hooks/useNavigation';
 import NativeModules from '../CustomModules';
 
@@ -26,6 +26,7 @@ const HomeScreen = () => {
         onPress={async () => {
           console.log(await getHardwareInfo());
           console.log(await getNetworkStatus());
+          console.log(await getDisplay());
           navigation.navigate('Camera');
         }}
       />

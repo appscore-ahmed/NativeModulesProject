@@ -12,3 +12,15 @@ export const getNetworkStatus = async () => {
     NativeModules.DeviceInfoModule.Internet,
   );
 };
+
+export const getPhoneID = async () => {
+  return await NativeModules.DeviceInfoModule.getDeviceInfo(
+    NativeModules.DeviceInfoModule.ID,
+  );
+};
+
+export const getDisplay = async () => {
+  return await NativeModules.DeviceInfoModule.getDeviceInfo(
+    NativeModules.DeviceInfoModule.Display,
+  );
+};
