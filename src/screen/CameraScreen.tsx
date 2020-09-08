@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, View, StyleSheet, Image, Button, Alert} from 'react-native';
-import NativeModules from '../CustomModules';
+// import NativeModules from '../CustomModules';
 
 const CameraScreen = () => {
   const [imageSource, setImageSource] = React.useState<string>(
@@ -14,13 +14,13 @@ const CameraScreen = () => {
       <Button
         title="Click Meee"
         onPress={() => {
-          NativeModules.CameraModule.callCamera()
-            .then((uri: string) => {
-              console.log(`uri : ${uri}`);
-              setImageSource(uri);
-              setText(uri);
-            })
-            .catch((e: string) => Alert.alert(e));
+          // NativeModules.CameraModule.callCamera()
+          //   .then((uri: string) => {
+          //     console.log(`uri : ${uri}`);
+          //     setImageSource(uri);
+          //     setText(uri);
+          //   })
+          //   .catch((e: string) => Alert.alert(e));
         }}
       />
       <Image

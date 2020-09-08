@@ -5,11 +5,11 @@ import {
   NavigationScreenProp,
   NavigationState,
 } from 'react-navigation';
-import {
-  getHardwareInfo,
-  getNetworkStatus,
-  getDisplay,
-} from '../native_module/DeviceInfo';
+// import {
+//   getHardwareInfo,
+//   getNetworkStatus,
+//   getDisplay,
+// } from '../native_module/DeviceInfo';
 import {useNavigation} from '../hooks/useNavigation';
 import NativeModules from '../CustomModules';
 
