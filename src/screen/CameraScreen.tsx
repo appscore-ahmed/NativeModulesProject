@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, View, StyleSheet, Image, Button, Alert} from 'react-native';
-import NativeModule from '../CustomModules';
+import NativeModules from '../CustomModules';
 
 const CameraScreen = () => {
   const [imageSource, setImageSource] = React.useState<string>(
@@ -14,7 +14,7 @@ const CameraScreen = () => {
       <Button
         title="Click Meee"
         onPress={() => {
-          NativeModule.CameraModule.callCamera()
+          NativeModules.CameraModule.callCamera()
             .then((uri: string) => {
               console.log(`uri : ${uri}`);
               setImageSource(uri);

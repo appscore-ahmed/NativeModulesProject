@@ -1,4 +1,4 @@
-package com.nativemoduleproject.modules
+package com.nativemoduleproject.modules.camera
 
 import android.app.Activity
 import android.content.Context

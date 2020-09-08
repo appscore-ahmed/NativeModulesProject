@@ -1,4 +1,4 @@
-package com.nativemoduleproject.modules
+package com.nativemoduleproject.modules.toast
 
 import android.widget.Toast
 import com.facebook.react.bridge.*

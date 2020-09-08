@@ -1,20 +1,34 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Text, Button, View, StyleSheet} from 'react-native';
 import {
   NavigationParams,
   NavigationScreenProp,
   NavigationState,
 } from 'react-navigation';
+import {getHardwareInfo, getNetworkStatus} from '../native_module/DeviceInfo';
 import {useNavigation} from '../hooks/useNavigation';
+import NativeModules from '../CustomModules';
 
 type navigation = NavigationScreenProp<NavigationState, NavigationParams>;
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+
+  useEffect(() => {
+    NativeModules.ToastExample.show('test', NativeModules.ToastExample.SHORT);
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text>Native Camera</Text>
-      <Button title='Camera' onPress={() => navigation.navigate('Camera')} />
+      <Button
+        title="Camera"
+        onPress={async () => {
+          console.log(await getHardwareInfo());
+          console.log(await getNetworkStatus());
+          navigation.navigate('Camera');
+        }}
+      />
     </View>
   );
 };
