@@ -6,6 +6,7 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.uimanager.ViewManager
 import com.nativemoduleproject.modules.camera.CameraModule
 import com.nativemoduleproject.modules.deviceinfo.DeviceInfoModule
+import com.nativemoduleproject.modules.geolocation.GeolocationModule
 import com.nativemoduleproject.modules.toast.ToastModule
 import java.util.*
 import java.util.Collections.emptyList
@@ -22,6 +23,7 @@ class CustomModulesPackage : ReactPackage {
         modules.add(ToastModule(reactContext))
         modules.add(CameraModule(reactContext))
         modules.add(DeviceInfoModule(reactContext))
+        modules.add(GeolocationModule(reactContext))
         return modules
     }
 }
