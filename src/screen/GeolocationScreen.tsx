@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View, Button, StyleSheet} from 'react-native';
+import {
+  Text,
+  View,
+  Button,
+  StyleSheet,
+  NativeAppEventEmitter,
+  NativeEventEmitter,
+} from 'react-native';
 import NativeModules from '../CustomModules';
 
 interface coords {
@@ -8,9 +15,21 @@ interface coords {
 }
 
 const GeolocationScreen = () => {
-  //   const [latitude, setLatitude] = useState<number>(0);
-  //   const [longitude, setLongitude] = useState<number>(0);
   const [coords, setCoords] = useState<coords>({latitude: 0, longitude: 0});
+  const [isHidden, setHidden] = useState<Boolean>(true);
+
+  useEffect(() => {
+    /*  Testing eventListener */
+    const eventEmitter = new NativeEventEmitter(NativeModules.ShareModule);
+    const eventListener = eventEmitter.addListener('EventReminder', (event) => {
+      console.log(event.share);
+    });
+
+    return () => {
+      eventListener.remove();
+      console.log('listener removed');
+    };
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -24,21 +43,22 @@ const GeolocationScreen = () => {
               .then((coord: string) => {
                 const _coords = JSON.parse(coord);
                 setCoords(_coords);
+                setHidden(false);
               })
               .catch((e: string) => console.log('ASD', e));
           }}
         />
       </View>
-      {coords.latitude !== 0 ? (
+      {!isHidden && (
         <View style={styles.buttonViewStyle}>
           <Button
             title="Share"
             onPress={() => {
-              NativeModules.ShareModule.shareText(JSON.stringify(coords));
+              NativeModules.ShareModule.share(JSON.stringify(coords), "text");
             }}
           />
         </View>
-      ) : null}
+      )}
     </View>
   );
 };

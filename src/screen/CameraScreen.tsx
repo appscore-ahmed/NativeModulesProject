@@ -1,12 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, View, StyleSheet, Image, Button, Alert} from 'react-native';
-// import NativeModules from '../CustomModules';
+import NativeModules from '../CustomModules';
 
 const CameraScreen = () => {
-  const [imageSource, setImageSource] = React.useState<string>(
-    '',
-  );
-  const [text, setText] = React.useState<string | undefined>();
+  const [imageSource, setImageSource] = useState<string>('');
+  const [text, setText] = useState<string | undefined>();
+  const [isHidden, setHidden] = useState<Boolean>(true);
 
   return (
     <View style={styles.container}>
@@ -14,13 +13,14 @@ const CameraScreen = () => {
       <Button
         title="Click Meee"
         onPress={() => {
-          // NativeModules.CameraModule.callCamera()
-          //   .then((uri: string) => {
-          //     console.log(`uri : ${uri}`);
-          //     setImageSource(uri);
-          //     setText(uri);
-          //   })
-          //   .catch((e: string) => Alert.alert(e));
+          NativeModules.CameraModule.callCamera()
+            .then((uri: string) => {
+              console.log(`uri : ${uri}`);
+              setImageSource(uri);
+              setText(uri);
+              setHidden(false);
+            })
+            .catch((e: string) => Alert.alert(e));
         }}
       />
       <Image
@@ -31,6 +31,16 @@ const CameraScreen = () => {
         }}
         onError={console.log}
       />
+      {!isHidden && (
+        <View style={styles.buttonViewStyle}>
+          <Button
+            title="Share"
+            onPress={() => {
+              NativeModules.ShareModule.share(imageSource, 'image');
+            }}
+          />
+        </View>
+      )}
     </View>
   );
 };
@@ -45,6 +55,9 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     resizeMode: 'stretch',
+  },
+  buttonViewStyle: {
+    marginVertical: 30,
   },
 });
 

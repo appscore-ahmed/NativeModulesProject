@@ -32,8 +32,7 @@ const HomeScreen = () => {
           // console.log(await getNetworkStatus());
           // console.log(await getDisplay());
           
-          // navigation.navigate('Camera');
-          NativeModules.ShareModule.shareText()
+          navigation.navigate('Camera');
         }}
       />
       <View style={styles.buttonViewStyle}>
