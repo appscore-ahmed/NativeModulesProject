@@ -2,28 +2,43 @@ import React, {useEffect, useState} from 'react';
 import {Text, View, Button, StyleSheet} from 'react-native';
 import NativeModules from '../CustomModules';
 
+interface coords {
+  latitude: number;
+  longitude: number;
+}
+
 const GeolocationScreen = () => {
-  const [latitude, setLatitude] = useState<number>(0);
-  const [longitude, setLongitude] = useState<number>(0);
+  //   const [latitude, setLatitude] = useState<number>(0);
+  //   const [longitude, setLongitude] = useState<number>(0);
+  const [coords, setCoords] = useState<coords>({latitude: 0, longitude: 0});
 
   return (
     <View style={styles.container}>
-      <Text>latitude: {latitude}</Text>
-      <Text>longitude: {longitude}</Text>
+      <Text>latitude: {coords.latitude}</Text>
+      <Text>longitude: {coords.longitude}</Text>
       <View style={styles.buttonViewStyle}>
         <Button
           title="fetch geolocation"
           onPress={async () => {
             await NativeModules.GeolocationModule.fetchLocation()
               .then((coord: string) => {
-                const ob = JSON.parse(coord);
-                setLatitude(ob.latitude);
-                setLongitude(ob.longitude);
+                const _coords = JSON.parse(coord);
+                setCoords(_coords);
               })
               .catch((e: string) => console.log('ASD', e));
           }}
         />
       </View>
+      {coords.latitude !== 0 ? (
+        <View style={styles.buttonViewStyle}>
+          <Button
+            title="Share"
+            onPress={() => {
+              NativeModules.ShareModule.shareText(JSON.stringify(coords));
+            }}
+          />
+        </View>
+      ) : null}
     </View>
   );
 };

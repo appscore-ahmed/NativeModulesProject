@@ -27,11 +27,13 @@ const HomeScreen = () => {
       <Text>Native Camera</Text>
       <Button
         title="Camera"
-        onPress={async () => {
+        onPress={ () => {
           // console.log(await getHardwareInfo());
           // console.log(await getNetworkStatus());
           // console.log(await getDisplay());
-          navigation.navigate('Camera');
+          
+          // navigation.navigate('Camera');
+          NativeModules.ShareModule.shareText()
         }}
       />
       <View style={styles.buttonViewStyle}>
