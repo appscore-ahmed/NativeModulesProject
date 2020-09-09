@@ -3,6 +3,7 @@ import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import HomeScreen from './src/screen/HomeScreen';
 import CameraScreen from './src/screen/CameraScreen';
+import GeolocationScreen from './src/screen/GeolocationScreen';
 
 const navigator = createStackNavigator(
   {
@@ -14,6 +15,12 @@ const navigator = createStackNavigator(
     },
     Camera: {
       screen: CameraScreen,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    Geolocation: {
+      screen: GeolocationScreen,
       navigationOptions: {
         headerShown: false,
       },

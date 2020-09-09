@@ -15,15 +15,18 @@ import java.util.concurrent.TimeUnit
 
 class GeolocationModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
 
+
+    private val context = reactApplicationContext
     private lateinit var locationCallback: LocationCallback
     private var fusedLocationProviderClient: FusedLocationProviderClient =
-            LocationServices.getFusedLocationProviderClient(currentActivity?.applicationContext!!)
+            LocationServices.getFusedLocationProviderClient(context)
     private var locationRequest: LocationRequest = LocationRequest().apply {
         interval = TimeUnit.SECONDS.toMillis(60)
         fastestInterval = TimeUnit.SECONDS.toMillis(30)
-        maxWaitTime = TimeUnit.MINUTES.toMillis(2)
+        maxWaitTime = TimeUnit.SECONDS.toMillis(2)
         priority = LocationRequest.PRIORITY_HIGH_ACCURACY
     }
+
 
     override fun getName(): String {
         return "GeolocationModule"
@@ -36,25 +39,23 @@ class GeolocationModule(reactContext: ReactApplicationContext) : ReactContextBas
 
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult?) {
-                Log.e("ASD", "onLocationResult clicked")
+                Log.e("ASD", "onLocationResult clicked ${locationResult.toString()}")
                 locationResult ?: return
                 val coordinatesJSONObject = JSONObject()
                 for (location in locationResult.locations) {
-//                    coords["lat"] = location.latitude
-//                    coords["long"] = location.longitude
                     coordinatesJSONObject.put("latitude", location.latitude)
                     coordinatesJSONObject.put("longitude", location.longitude)
                     Log.e("ASD", coordinatesJSONObject.toString())
-//                    fusedLocationProviderClient.removeLocationUpdates(locationCallback)
-//                    promise.resolve(coordinatesJSONObject.toString())
+                    fusedLocationProviderClient.removeLocationUpdates(locationCallback)
+                    promise.resolve(coordinatesJSONObject.toString())
                 }
             }
         }
 
 
-        if (ActivityCompat.checkSelfPermission(currentActivity?.applicationContext!!,
+        if (ActivityCompat.checkSelfPermission(context,
                         Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(currentActivity?.applicationContext!!,
+                && ActivityCompat.checkSelfPermission(context,
                         Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Log.e("ASD", "Permission not granted")
             promise.reject("-1", "Permission not granted")

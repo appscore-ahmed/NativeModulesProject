@@ -31,13 +31,17 @@ const HomeScreen = () => {
           // console.log(await getHardwareInfo());
           // console.log(await getNetworkStatus());
           // console.log(await getDisplay());
-          // navigation.navigate('Camera');
-          console.log('clicked');
-          // await  NativeModules.GeolocationModule.fetchLocation()
-          //   .then(console.log)
-          //   .catch((e: string) => console.log('ASD', e));
+          navigation.navigate('Camera');
         }}
       />
+      <View style={styles.buttonViewStyle}>
+        <Button
+          title="Geolocation"
+          onPress={() => {
+            navigation.navigate('Geolocation');
+          }}
+        />
+      </View>
     </View>
   );
 };
@@ -47,6 +51,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  buttonViewStyle: {
+    marginVertical: 30,
   },
 });
 
