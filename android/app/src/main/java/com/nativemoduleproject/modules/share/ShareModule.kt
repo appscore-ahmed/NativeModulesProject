@@ -1,8 +1,6 @@
 package com.nativemoduleproject.modules.share
 
 import android.content.Intent
-import android.os.StrictMode
-import android.os.StrictMode.VmPolicy
 import android.util.Log
 import androidx.core.content.FileProvider
 import com.facebook.react.bridge.*
@@ -36,9 +34,12 @@ class ShareModule(private val reactContext: ReactApplicationContext) : ReactCont
                     type = "text/*"
                 }
                 "image" -> {
+                    val strippedPath = data.substringAfter("file://")
+                    Log.e("ASD", strippedPath)
                     putExtra(Intent.EXTRA_STREAM,
                             FileProvider.getUriForFile(reactContext,
-                                    reactContext.packageName + ".fileprovider", File("/storage/emulated/0/Pictures/Title (13).jpg")))
+                                    reactContext.packageName + ".fileprovider",
+                                    File(strippedPath)))
                     type = "image/*"
                 }
             }
