@@ -27,7 +27,7 @@ const CameraScreen = () => {
         style={styles.stretch}
         source={{uri: imageSource}}
         onLoadEnd={() => {
-          console.log('loaded');
+          console.log('loaded'); 
         }}
         onError={console.log}
       />

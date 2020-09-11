@@ -43,6 +43,14 @@ const HomeScreen = () => {
           }}
         />
       </View>
+      <View style={styles.buttonViewStyle}>
+        <Button
+          title="Image Picker"
+          onPress={() => {
+            navigation.navigate('ImagePicker');
+          }}
+        />
+      </View>
     </View>
   );
 };
