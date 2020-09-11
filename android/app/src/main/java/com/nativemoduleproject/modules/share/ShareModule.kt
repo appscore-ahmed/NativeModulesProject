@@ -20,9 +20,6 @@ class ShareModule(private val reactContext: ReactApplicationContext) : ReactCont
     @ReactMethod
     fun share(data: String, shareType: String): Unit {
 
-//        val builder = VmPolicy.Builder()
-//        StrictMode.setVmPolicy(builder.build())
-
         val params = Arguments.createMap()
         params.putString("share", "ShareSheet opening")
         Log.e("ASD", data)

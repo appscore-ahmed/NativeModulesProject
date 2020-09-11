@@ -1,42 +1,45 @@
 import React, {useState} from 'react';
-import {Text, View, StyleSheet, Image, Button, Alert} from 'react-native';
-import NativeModules from '../CustomModules';
+import {View, StyleSheet, Image, Button, Alert} from 'react-native';
+import {callCamera, shareToExternal, shareType} from '../native_module/Modules';
+import ImageComponent from '../components/ImageComponent';
 
 const CameraScreen = () => {
-  const [imageSource, setImageSource] = useState<string>('');
-  const [text, setText] = useState<string | undefined>();
+  const [imageSource, setImageSource] = useState<string | undefined>();
   const [isHidden, setHidden] = useState<Boolean>(true);
 
   return (
     <View style={styles.container}>
-      <Text>{text}</Text>
-      <Button
-        title="Click Meee"
-        onPress={() => {
-          NativeModules.CameraModule.callCamera()
-            .then((uri: string) => {
-              console.log(`uri : ${uri}`);
-              setImageSource(uri);
-              setText(uri);
-              setHidden(false);
-            })
-            .catch((e: string) => Alert.alert(e));
-        }}
-      />
-      <Image
-        style={styles.stretch}
-        source={{uri: imageSource}}
-        onLoadEnd={() => {
-          console.log('loaded'); 
-        }}
-        onError={console.log}
+      //{' '}
+      {/* <Button
+      //   title="Click Meee"
+      //   onPress={() => {
+      //     callCamera()
+      //       .then((uri: string) => {
+      //         console.log(`uri : ${uri}`);
+      //         setImageSource(uri);
+      //         setHidden(false);
+      //       })
+      //       .catch((e: string) => Alert.alert(e));
+      //   }}
+      // />
+      // <Image
+      //   style={styles.stretch}
+      //   source={{uri: imageSource}}
+      //   onLoadEnd={() => {
+      //     console.log('loaded');
+      //   }}
+      //   onError={console.log}
+      // /> */}
+      <ImageComponent
+        promisedCallback={callCamera}
+        isSuccessfull={(isTrues: Boolean) => setHidden(isTrues)}
       />
       {!isHidden && (
         <View style={styles.buttonViewStyle}>
           <Button
             title="Share"
             onPress={() => {
-              NativeModules.ShareModule.share(imageSource, 'image');
+              shareToExternal(imageSource, shareType.image);
             }}
           />
         </View>

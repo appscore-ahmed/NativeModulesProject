@@ -8,27 +8,29 @@ import {
   Alert,
   Dimensions,
 } from 'react-native';
-import NativeModules from '../CustomModules';
+import {pickImage} from '../native_module/Modules';
+import ImageComponent from '../components/ImageComponent';
 
 const ImagePickerScreen = () => {
-  const [imageSource, setImageSource] = useState<string | undefined>('');
+  /* const [imageSource, setImageSource] = useState<string | undefined>(); */
   return (
-    <View style={styles.container}>
-      <Image style={styles.imageViewStyle} source={{uri: imageSource}} />
-      <View style={styles.buttonViewStyle}>
-        <Button
-          title="Pick Image"
-          onPress={() => {
-            NativeModules.ImagePickerModule.pickImage()
-              .then((uri: string) => {
-                setImageSource(uri);
-                console.log(uri);
-              })
-              .catch((e: string) => Alert.alert(e));
-          }}
-        />
-      </View>
-    </View>
+    // <View style={styles.container}>
+    //   <Image style={styles.imageViewStyle} source={{uri: imageSource}} />
+    //   <View style={styles.buttonViewStyle}>
+    //     <Button
+    //       title="Pick Image"
+    //       onPress={() => {
+    //         pickImage()
+    //           .then((uri: string) => {
+    //             setImageSource(uri);
+    //             console.log(uri);
+    //           })
+    //           .catch((e: string) => Alert.alert(e));
+    //       }}
+    //     />
+    //   </View>
+    // </View>
+    <ImageComponent promisedCallback={pickImage} />
   );
 };
 

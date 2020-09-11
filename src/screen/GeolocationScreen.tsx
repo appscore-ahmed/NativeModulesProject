@@ -1,13 +1,11 @@
 import React, {useEffect, useState} from 'react';
+import {Text, View, Button, StyleSheet, NativeEventEmitter} from 'react-native';
+import {NativeModules} from 'react-native';
 import {
-  Text,
-  View,
-  Button,
-  StyleSheet,
-  NativeAppEventEmitter,
-  NativeEventEmitter,
-} from 'react-native';
-import NativeModules from '../CustomModules';
+  fetchLocation,
+  shareToExternal,
+  shareType,
+} from '../native_module/Modules';
 
 interface coords {
   latitude: number;
@@ -39,7 +37,7 @@ const GeolocationScreen = () => {
         <Button
           title="fetch geolocation"
           onPress={async () => {
-            await NativeModules.GeolocationModule.fetchLocation()
+            await fetchLocation()
               .then((coord: string) => {
                 const _coords = JSON.parse(coord);
                 setCoords(_coords);
@@ -54,7 +52,7 @@ const GeolocationScreen = () => {
           <Button
             title="Share"
             onPress={() => {
-              NativeModules.ShareModule.share(JSON.stringify(coords), "text");
+              shareToExternal(JSON.stringify(coords), shareType.text);
             }}
           />
         </View>
