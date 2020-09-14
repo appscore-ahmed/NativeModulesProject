@@ -1,16 +1,36 @@
 import React, {useEffect} from 'react';
-import {Text, Button, View, StyleSheet} from 'react-native';
-import {
-  NavigationParams,
-  NavigationScreenProp,
-  NavigationState,
-} from 'react-navigation';
+import {Button, View, StyleSheet, Alert} from 'react-native';
 import {useNavigation} from '../hooks/useNavigation';
-
-type navigation = NavigationScreenProp<NavigationState, NavigationParams>;
+import Orientation, {OrientationType} from 'react-native-orientation-locker';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+
+  const _orientationDidChange = (orientation: OrientationType) => {
+    console.log(orientation);
+    if (orientation === 'PORTRAIT') {
+      console.log('PORTRAIT');
+    } else {
+      console.log(orientation);
+    }
+  };
+
+  useEffect(() => {
+    const initial = Orientation.getInitialOrientation();
+    if (initial === 'PORTRAIT') {
+      console.log('PORTRIAT');
+    } else {
+      console.log(initial);
+    }
+
+    Orientation.unlockAllOrientations();
+    Orientation.addOrientationListener(_orientationDidChange);
+
+    return () => {
+      console.log('removed');
+      Orientation.removeOrientationListener(_orientationDidChange);
+    };
+  }, []);
 
   return (
     <View style={styles.container}>

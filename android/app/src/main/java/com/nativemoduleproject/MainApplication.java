@@ -11,6 +11,9 @@ import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.nativemoduleproject.modules.CustomModulesPackage;
 
+import org.wonday.orientation.OrientationActivityLifecycle;
+import org.wonday.orientation.OrientationPackage;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -29,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
                     List<ReactPackage> packages = new PackageList(this).getPackages();
                     // Packages that cannot be autolinked yet can be added manually here, for example:
                     // packages.add(new MyReactNativePackage());
+//                    packages.add(new OrientationPackage());//for orientation changes
                     packages.add(new CustomModulesPackage());
                     return packages;
                 }
@@ -49,6 +53,8 @@ public class MainApplication extends Application implements ReactApplication {
         super.onCreate();
         SoLoader.init(this, /* native exopackage */ false);
         initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+        /*for orientation changes*/
+        registerActivityLifecycleCallbacks(OrientationActivityLifecycle.getInstance());
     }
 
     /**

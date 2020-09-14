@@ -8,6 +8,9 @@ target 'NativeModuleProject' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+
+  pod 'react-native-orientation-locker', :path => '../node_modules/react-native-orientation-locker'
+
   target 'NativeModuleProjectTests' do
     inherit! :complete
     # Pods for testing
