@@ -7,7 +7,6 @@ const HomeScreen = () => {
   const navigation = useNavigation();
 
   const _orientationDidChange = (orientation: OrientationType) => {
-    console.log(orientation);
     if (orientation === 'PORTRAIT') {
       console.log('PORTRAIT');
     } else {
@@ -16,19 +15,12 @@ const HomeScreen = () => {
   };
 
   useEffect(() => {
-    const initial = Orientation.getInitialOrientation();
-    if (initial === 'PORTRAIT') {
-      console.log('PORTRIAT');
-    } else {
-      console.log(initial);
-    }
-
     Orientation.unlockAllOrientations();
-    Orientation.addOrientationListener(_orientationDidChange);
+    Orientation.addDeviceOrientationListener(_orientationDidChange);
 
     return () => {
       console.log('removed');
-      Orientation.removeOrientationListener(_orientationDidChange);
+      Orientation.removeDeviceOrientationListener(_orientationDidChange);
     };
   }, []);
 

@@ -29,4 +29,5 @@ public class MainActivity extends ReactActivity {
         Log.e("ASD", "newConfig " + newConfig.orientation);
         this.sendBroadcast(intent);
     }
+    
 }
