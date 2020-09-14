@@ -6,7 +6,7 @@ import Orientation, {OrientationType} from 'react-native-orientation-locker';
 const HomeScreen = () => {
   const navigation = useNavigation();
 
-  const _orientationDidChange = (orientation: OrientationType) => {
+  /* const _orientationDidChange = (orientation: OrientationType) => {
     if (orientation === 'PORTRAIT') {
       console.log('PORTRAIT');
     } else {
@@ -19,10 +19,9 @@ const HomeScreen = () => {
     Orientation.addDeviceOrientationListener(_orientationDidChange);
 
     return () => {
-      console.log('removed');
       Orientation.removeDeviceOrientationListener(_orientationDidChange);
     };
-  }, []);
+  }, []); */
 
   return (
     <View style={styles.container}>

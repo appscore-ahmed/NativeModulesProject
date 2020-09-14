@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {callCamera} from '../native_module/Modules';
 import ImageComponent from '../components/ImageComponent';
 
 const CameraScreen = () => {
-  return (
+ return (
     <View style={styles.container}>
       <ImageComponent
         buttonTitle="Take a Picture"
