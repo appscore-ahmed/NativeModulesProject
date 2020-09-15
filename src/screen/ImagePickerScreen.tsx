@@ -1,12 +1,6 @@
 import React, {useState} from 'react';
 import {
-  Text,
-  View,
   StyleSheet,
-  Image,
-  Button,
-  Alert,
-  Dimensions,
 } from 'react-native';
 import {pickImage} from '../native_module/Modules';
 import ImageComponent from '../components/ImageComponent';

@@ -1,17 +1,16 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
+  Text,
   StyleSheet,
   Image,
   Dimensions,
   Button,
   Alert,
-  LayoutChangeEvent,
   ScaledSize,
 } from 'react-native';
 import {shareToExternal, shareType} from '../native_module/Modules';
-import Orientation, {OrientationType} from 'react-native-orientation-locker';
-import {isPortrait} from '../styles/Orientation';
+import {getOrientation} from '../styles/Orientation';
 
 interface nativeCall {
   dimen?: layoutType;
@@ -35,46 +34,7 @@ interface layoutType {
 const ImageComponent = (props: nativeCall) => {
   const [imageSource, setImageSource] = useState<string | undefined>();
   const [isHidden, setHidden] = useState<Boolean>(true);
-  const [orientation, setOrientation] = useState<string>();
-
   const [screen, setScreen] = useState<ScaledSize>(Dimensions.get('window'));
-
-  const _orientationDidChange = (orientation: OrientationType) => {
-    if (orientation === 'PORTRAIT') {
-      console.log('PORTRAIT');
-    } else {
-      console.log(orientation);
-    }
-  };
-
-  /*   useEffect(() => {
-    const callback = () => {
-      console;
-      setOrientation(
-        isPortrait() ? OrientationEnum.PORTRAIT : OrientationEnum.LANDSCAPE,
-      );
-    };
-
-    Dimensions.addEventListener('change', callback);
-
-    setOrientation(Orientation.getInitialOrientation());
-
-    Orientation.unlockAllOrientations();
-    Orientation.addDeviceOrientationListener(_orientationDidChange);
-
-    return () => {
-      Orientation.removeDeviceOrientationListener(_orientationDidChange);
-      Dimensions.removeEventListener('change', callback);
-    };
-  }, []);
- */
-  const getOrientation = () => {
-    if (screen.width > screen.height) {
-      return 'LANDSCAPE';
-    } else {
-      return 'PORTRAIT';
-    }
-  };
 
   const onLayout = () => {
     console.log('onLayout called');
@@ -84,11 +44,9 @@ const ImageComponent = (props: nativeCall) => {
   const getStyle = () => {
     if (getOrientation() === 'PORTRAIT') {
       {
-        console.log('stylesPort');
         return stylesPort;
       }
     } else {
-      console.log('stylesLand');
       return stylesLand;
     }
   };
@@ -101,7 +59,6 @@ const ImageComponent = (props: nativeCall) => {
         <Button
           title={props.buttonTitle}
           onPress={() => {
-            /* pickImage() */
             props
               .promisedCallback()
               .then((uri: string) => {
@@ -134,7 +91,7 @@ const stylesPort = StyleSheet.create({
   },
   imageViewStyle: {
     resizeMode: 'cover',
-    height: Dimensions.get('window').height - 150,
+    height: Dimensions.get('window').height-150,
     width: Dimensions.get('window').width,
   },
   buttonViewStyle: {
@@ -145,20 +102,46 @@ const stylesPort = StyleSheet.create({
 const stylesLand = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'red',
-  },
-  containerLandscape: {
-    flex: 1,
   },
   imageViewStyle: {
     resizeMode: 'cover',
-    height: Dimensions.get('window').height,
-    width: Dimensions.get('window').width,
+    height: '65%',
+    width: '100%',
   },
   buttonViewStyle: {
-    // marginHorizontal: 20,
-    // marginVertical: 20,
+    marginHorizontal: 20,
+    marginVertical: 20,
   },
 });
 
 export default ImageComponent;
+
+/*const _orientationDidChange = (orientation: OrientationType) => {
+    if (orientation === 'PORTRAIT') {
+      console.log('PORTRAIT');
+    } else {
+      console.log(orientation);
+    }
+  };
+
+     useEffect(() => {
+    const callback = () => {
+      console;
+      setOrientation(
+        isPortrait() ? OrientationEnum.PORTRAIT : OrientationEnum.LANDSCAPE,
+      );
+    };
+
+    Dimensions.addEventListener('change', callback);
+
+    setOrientation(Orientation.getInitialOrientation());
+
+    Orientation.unlockAllOrientations();
+    Orientation.addDeviceOrientationListener(_orientationDidChange);
+
+    return () => {
+      Orientation.removeDeviceOrientationListener(_orientationDidChange);
+      Dimensions.removeEventListener('change', callback);
+    };
+  }, []);
+ */
