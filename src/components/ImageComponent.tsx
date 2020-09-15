@@ -1,10 +1,19 @@
-import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, Image, Dimensions, Button, Alert} from 'react-native';
+import React, {useState, useEffect, useCallback} from 'react';
+import {
+  View,
+  StyleSheet,
+  Image,
+  Dimensions,
+  Button,
+  Alert,
+  LayoutChangeEvent,
+} from 'react-native';
 import {shareToExternal, shareType} from '../native_module/Modules';
 import Orientation, {OrientationType} from 'react-native-orientation-locker';
 import {isPortrait} from '../styles/Orientation';
 
 interface nativeCall {
+  dimen?: layoutType;
   buttonTitle: string;
   promisedCallback: () => Promise<string>;
   isSuccessfull?: (isTrue: Boolean) => void;
@@ -15,7 +24,28 @@ enum OrientationEnum {
   LANDSCAPE = 'landscape',
 }
 
-var {height, width} = Dimensions.get('screen');
+interface layoutType {
+  height: number;
+  width: number;
+  x: number;
+  y: number;
+}
+
+const useComponent = () => {
+  const [layout, setLayout] = useState({
+    height: 0,
+    width: 0,
+    x: 0,
+    y: 0,
+  });
+
+  const onLayout = useCallback((event: LayoutChangeEvent) => {
+    const layout = event.nativeEvent.layout;
+    setLayout(layout);
+  }, []);
+
+  return [layout, onLayout];
+};
 
 const ImageComponent = (props: nativeCall) => {
   const [imageSource, setImageSource] = useState<string | undefined>();
@@ -39,32 +69,22 @@ const ImageComponent = (props: nativeCall) => {
       );
     };
 
-    Dimensions.addEventListener('change', callback);
+    // Dimensions.addEventListener('change', callback);
 
     Orientation.unlockAllOrientations();
     Orientation.addDeviceOrientationListener(_orientationDidChange);
 
     return () => {
       Orientation.removeDeviceOrientationListener(_orientationDidChange);
-      Dimensions.removeEventListener('change', callback);
+      // Dimensions.removeEventListener('change', callback);
     };
   }, []);
 
+  // console.log(props.dimen.height + props.dimen.width);
+
   return (
-    <View
-      style={
-        orientation === OrientationEnum.PORTRAIT
-          ? styles.container
-          : styles.containerLandscape
-      }>
-      <Image
-        style={
-          orientation === OrientationEnum.PORTRAIT
-            ? styles.imageViewStyle
-            : styles.imageViewLandscapeStyle
-         }
-        source={{uri: imageSource}}
-      />
+    <View style={styles.container}>
+      <Image style={styles.imageViewStyle} source={{uri: imageSource}} />
       <View style={styles.buttonViewStyle}>
         <Button
           title={props.buttonTitle}
