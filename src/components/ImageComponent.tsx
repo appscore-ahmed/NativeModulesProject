@@ -10,18 +10,14 @@ import {
   ScaledSize,
 } from 'react-native';
 import {shareToExternal, shareType} from '../native_module/Modules';
-import {getOrientation} from '../styles/Orientation';
+import {OrientationEnum} from '../styles/OrientationEnum';
+import {useOrientation} from '../hooks/useOrientation';
 
 interface nativeCall {
   dimen?: layoutType;
   buttonTitle: string;
   promisedCallback: () => Promise<string>;
   isSuccessfull?: (isTrue: Boolean) => void;
-}
-
-enum OrientationEnum {
-  PORTRAIT = 'portrait',
-  LANDSCAPE = 'landscape',
 }
 
 interface layoutType {
@@ -42,7 +38,7 @@ const ImageComponent = (props: nativeCall) => {
   };
 
   const getStyle = () => {
-    if (getOrientation() === 'PORTRAIT') {
+    if (useOrientation() === OrientationEnum.PORTRAIT) {
       {
         return stylesPort;
       }
@@ -91,7 +87,7 @@ const stylesPort = StyleSheet.create({
   },
   imageViewStyle: {
     resizeMode: 'cover',
-    height: Dimensions.get('window').height-150,
+    height: Dimensions.get('window').height - 150,
     width: Dimensions.get('window').width,
   },
   buttonViewStyle: {
@@ -104,7 +100,7 @@ const stylesLand = StyleSheet.create({
     flex: 1,
   },
   imageViewStyle: {
-    resizeMode: 'cover',
+    resizeMode: 'contain',
     height: '65%',
     width: '100%',
   },
