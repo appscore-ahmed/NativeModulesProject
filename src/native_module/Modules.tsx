@@ -9,9 +9,7 @@ type _moduleType = {
   lifecycle(): Promise<string>;
 };
 
-export default () => {
-  NativeModules.LifecycleEventsModule as _moduleType;
-};
+export default NativeModules.LifecycleEventsModule as _moduleType;
 
 export const shareToExternal = (
   source: string | undefined,
