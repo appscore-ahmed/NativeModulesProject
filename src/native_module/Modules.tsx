@@ -5,6 +5,14 @@ export enum shareType {
   text = 'text',
 }
 
+type _moduleType = {
+  lifecycle(): Promise<string>;
+};
+
+export default () => {
+  NativeModules.LifecycleEventsModule as _moduleType;
+};
+
 export const shareToExternal = (
   source: string | undefined,
   type: shareType,

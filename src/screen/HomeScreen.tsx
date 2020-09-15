@@ -1,27 +1,23 @@
 import React, {useEffect} from 'react';
-import {Button, View, StyleSheet, Alert} from 'react-native';
+import {Button, View, StyleSheet, NativeModules} from 'react-native';
 import {useNavigation} from '../hooks/useNavigation';
-import Orientation, {OrientationType} from 'react-native-orientation-locker';
+import lifecycle from '../native_module/Modules';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
 
-  /* const _orientationDidChange = (orientation: OrientationType) => {
-    if (orientation === 'PORTRAIT') {
-      console.log('PORTRAIT');
-    } else {
-      console.log(orientation);
-    }
-  };
-
   useEffect(() => {
-    Orientation.unlockAllOrientations();
-    Orientation.addDeviceOrientationListener(_orientationDidChange);
-
-    return () => {
-      Orientation.removeDeviceOrientationListener(_orientationDidChange);
-    };
-  }, []); */
+    try {
+      lifecycle
+        .lifecycle()
+        .then((e: string) => {
+          console.log(e);
+        })
+        .catch((e: string) => console.log(e));
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -65,3 +61,20 @@ const styles = StyleSheet.create({
 });
 
 export default HomeScreen;
+
+/* const _orientationDidChange = (orientation: OrientationType) => {
+    if (orientation === 'PORTRAIT') {
+      console.log('PORTRAIT');
+    } else {
+      console.log(orientation);
+    }
+  };
+
+  useEffect(() => {
+    Orientation.unlockAllOrientations();
+    Orientation.addDeviceOrientationListener(_orientationDidChange);
+
+    return () => {
+      Orientation.removeDeviceOrientationListener(_orientationDidChange);
+    };
+  }, []); */
