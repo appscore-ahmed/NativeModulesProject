@@ -7,6 +7,7 @@ import {
   Button,
   Alert,
   LayoutChangeEvent,
+  ScaledSize,
 } from 'react-native';
 import {shareToExternal, shareType} from '../native_module/Modules';
 import Orientation, {OrientationType} from 'react-native-orientation-locker';
@@ -27,32 +28,16 @@ enum OrientationEnum {
 interface layoutType {
   height: number;
   width: number;
-  x: number;
-  y: number;
+  /* x: number;
+  y: number; */
 }
-
-const useComponent = () => {
-  const [layout, setLayout] = useState({
-    height: 0,
-    width: 0,
-    x: 0,
-    y: 0,
-  });
-
-  const onLayout = useCallback((event: LayoutChangeEvent) => {
-    const layout = event.nativeEvent.layout;
-    setLayout(layout);
-  }, []);
-
-  return [layout, onLayout];
-};
 
 const ImageComponent = (props: nativeCall) => {
   const [imageSource, setImageSource] = useState<string | undefined>();
   const [isHidden, setHidden] = useState<Boolean>(true);
-  const [orientation, setOrientation] = useState<OrientationEnum>(
-    OrientationEnum.PORTRAIT,
-  );
+  const [orientation, setOrientation] = useState<string>();
+
+  const [screen, setScreen] = useState<ScaledSize>(Dimensions.get('window'));
 
   const _orientationDidChange = (orientation: OrientationType) => {
     if (orientation === 'PORTRAIT') {
@@ -62,28 +47,55 @@ const ImageComponent = (props: nativeCall) => {
     }
   };
 
-  useEffect(() => {
+  /*   useEffect(() => {
     const callback = () => {
+      console;
       setOrientation(
         isPortrait() ? OrientationEnum.PORTRAIT : OrientationEnum.LANDSCAPE,
       );
     };
 
-    // Dimensions.addEventListener('change', callback);
+    Dimensions.addEventListener('change', callback);
+
+    setOrientation(Orientation.getInitialOrientation());
 
     Orientation.unlockAllOrientations();
     Orientation.addDeviceOrientationListener(_orientationDidChange);
 
     return () => {
       Orientation.removeDeviceOrientationListener(_orientationDidChange);
-      // Dimensions.removeEventListener('change', callback);
+      Dimensions.removeEventListener('change', callback);
     };
   }, []);
+ */
+  const getOrientation = () => {
+    if (screen.width > screen.height) {
+      return 'LANDSCAPE';
+    } else {
+      return 'PORTRAIT';
+    }
+  };
 
-  // console.log(props.dimen.height + props.dimen.width);
+  const onLayout = () => {
+    console.log('onLayout called');
+    setScreen(Dimensions.get('window'));
+  };
+
+  const getStyle = () => {
+    if (getOrientation() === 'PORTRAIT') {
+      {
+        console.log('stylesPort');
+        return stylesPort;
+      }
+    } else {
+      console.log('stylesLand');
+      return stylesLand;
+    }
+  };
+  let styles = getStyle();
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} onLayout={onLayout}>
       <Image style={styles.imageViewStyle} source={{uri: imageSource}} />
       <View style={styles.buttonViewStyle}>
         <Button
@@ -102,41 +114,48 @@ const ImageComponent = (props: nativeCall) => {
           }}
         />
         {!isHidden && (
-          //   <View style={styles.buttonViewStyle}>
-          <Button
-            title="Share"
-            onPress={() => {
-              shareToExternal(imageSource, shareType.image);
-            }}
-          />
-          //   </View>
+          <View style={styles.buttonViewStyle}>
+            <Button
+              title="Share"
+              onPress={() => {
+                shareToExternal(imageSource, shareType.image);
+              }}
+            />
+          </View>
         )}
       </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
+const stylesPort = StyleSheet.create({
   container: {
     flex: 1,
   },
+  imageViewStyle: {
+    resizeMode: 'cover',
+    height: Dimensions.get('window').height - 150,
+    width: Dimensions.get('window').width,
+  },
+  buttonViewStyle: {
+    marginHorizontal: 20,
+    marginVertical: 20,
+  },
+});
+const stylesLand = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'red',
+  },
   containerLandscape: {
     flex: 1,
-    flexDirection: 'row',
   },
   imageViewStyle: {
     resizeMode: 'cover',
-    height: Dimensions.get('screen').height - 150,
-    width: Dimensions.get('screen').width,
-  },
-  imageViewLandscapeStyle: {
-    resizeMode: 'cover',
-    height: Dimensions.get('screen').height,
-    width: Dimensions.get('screen').width - 200,
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width,
   },
   buttonViewStyle: {
-    // flexDirection: 'row',
-    // justifyContent: 'space-around',
     // marginHorizontal: 20,
     // marginVertical: 20,
   },

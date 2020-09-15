@@ -11,30 +11,17 @@ interface layoutType {
 }
 
 const CameraScreen = () => {
-  const [dimen, setDimen] = useState<layoutType>({
-    height: Dimensions.get('window').height,
-    width: Dimensions.get('window').width,
-    x: 0,
-    y: 0,
-  });
-
-  console.log(dimen.width);
-  console.log(dimen.height);
+  
 
   return (
     <View
-      onLayout={(e) => {
-        console.log('layout');
-        console.log(e.nativeEvent.layout);
-        setDimen(e.nativeEvent.layout);
-      }}>
       
-        <ImageComponent
-          /* dimen={dimen} */
-          buttonTitle="Take a Picture"
-          promisedCallback={callCamera}
-        />
-      
+      style={styles.container}>
+      <ImageComponent
+        /* dimen={dimen} */
+        buttonTitle="Take a Picture"
+        promisedCallback={callCamera}
+      />
     </View>
   );
 };
@@ -44,6 +31,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+});
+
+const stylesLand = StyleSheet.create({
+  container: {
+    flex: 1,
   },
 });
 
