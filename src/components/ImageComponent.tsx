@@ -12,6 +12,7 @@ import {
 import {shareToExternal, shareType} from '../native_module/Modules';
 import {OrientationEnum} from '../styles/OrientationEnum';
 import {useOrientation} from '../hooks/useOrientation';
+// import {RCTImageView} from '../native_module/ImageView';
 
 interface nativeCall {
   dimen?: layoutType;
@@ -51,6 +52,9 @@ const ImageComponent = (props: nativeCall) => {
   return (
     <View style={styles.container} onLayout={onLayout}>
       <Image style={styles.imageViewStyle} source={{uri: imageSource}} />
+      {/* <View style={styles.buttonViewStyle}>
+        <RCTImageView />
+      </View> */}
       <View style={styles.buttonViewStyle}>
         <Button
           title={props.buttonTitle}

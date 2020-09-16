@@ -11,6 +11,7 @@ import com.nativemoduleproject.modules.imagepicker.ImagePickerModule
 import com.nativemoduleproject.modules.lifecyclerevent.LifecycleEventsModule
 import com.nativemoduleproject.modules.share.ShareModule
 import com.nativemoduleproject.modules.toast.ToastModule
+import com.nativemoduleproject.uicomponent.ReactImageManager
 import java.util.*
 import java.util.Collections.emptyList
 
@@ -30,6 +31,7 @@ class CustomModulesPackage : ReactPackage {
         modules.add(ShareModule(reactContext))
         modules.add(ImagePickerModule(reactContext))
         modules.add(LifecycleEventsModule(reactContext))
+        modules.add(ReactImageManager(reactContext))
         return modules
     }
 }

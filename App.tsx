@@ -5,6 +5,7 @@ import HomeScreen from './src/screen/HomeScreen';
 import CameraScreen from './src/screen/CameraScreen';
 import GeolocationScreen from './src/screen/GeolocationScreen';
 import ImagePickerScreen from './src/screen/ImagePickerScreen';
+import NativeUIComponentScreen from './src/screen/NativeUIComponentScreen';
 
 const navigator = createStackNavigator(
   {
@@ -28,6 +29,12 @@ const navigator = createStackNavigator(
     },
     ImagePicker: {
       screen: ImagePickerScreen,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    NativeUI: {
+      screen: NativeUIComponentScreen,
       navigationOptions: {
         headerShown: false,
       },

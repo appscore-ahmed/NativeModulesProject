@@ -11,7 +11,7 @@ import com.facebook.react.views.image.ImageResizeMode
 import com.facebook.react.views.image.ReactImageView
 
 class ReactImageManager(private val reactContext: ReactApplicationContext) : SimpleViewManager<ReactImageView>() {
-    override fun getName(): String = "ReactImageManager"
+    override fun getName(): String = "ReactImageView"
 
     override fun createViewInstance(context: ThemedReactContext): ReactImageView {
         return ReactImageView(context, Fresco.newDraweeControllerBuilder(),
