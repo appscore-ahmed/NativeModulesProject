@@ -13,12 +13,13 @@ import com.nativemoduleproject.modules.share.ShareModule
 import com.nativemoduleproject.modules.toast.ToastModule
 import com.nativemoduleproject.uicomponent.ReactImageManager
 import java.util.*
-import java.util.Collections.emptyList
 
 
 class CustomModulesPackage : ReactPackage {
     override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
-        return emptyList()
+        val view: MutableList<ViewManager<*, *>> = ArrayList()
+        view.add(ReactImageManager(reactContext))
+        return view
     }
 
     override fun createNativeModules(
@@ -31,7 +32,6 @@ class CustomModulesPackage : ReactPackage {
         modules.add(ShareModule(reactContext))
         modules.add(ImagePickerModule(reactContext))
         modules.add(LifecycleEventsModule(reactContext))
-        modules.add(ReactImageManager(reactContext))
         return modules
     }
 }
