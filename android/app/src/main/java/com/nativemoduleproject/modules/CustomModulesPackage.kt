@@ -11,13 +11,14 @@ import com.nativemoduleproject.modules.imagepicker.ImagePickerModule
 import com.nativemoduleproject.modules.lifecyclerevent.LifecycleEventsModule
 import com.nativemoduleproject.modules.share.ShareModule
 import com.nativemoduleproject.modules.toast.ToastModule
-import java.util.*
-import java.util.Collections.emptyList
+import com.nativemoduleproject.uicomponent.VideoViewManager
 
 
 class CustomModulesPackage : ReactPackage {
     override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
-        return emptyList()
+        val views: MutableList<ViewManager<*, *>> = ArrayList()
+        views.add(VideoViewManager(reactContext))
+        return views
     }
 
     override fun createNativeModules(
