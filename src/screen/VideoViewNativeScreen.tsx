@@ -8,6 +8,7 @@ const VideoViewNativeScreen = () => {
       <VideoView
         style={styles.videoView}
         url="https://www.radiantmediaplayer.com/media/big-buck-bunny-360p.mp4"
+        play={false}
       />
     </View>
   );
@@ -18,5 +19,4 @@ const styles = StyleSheet.create({
   videoView: {flex: 1, width: '100%', height: '100%'},
 });
 
-
-export default VideoViewNativeScreen
+export default VideoViewNativeScreen;

@@ -12,6 +12,7 @@ import com.nativemoduleproject.modules.lifecyclerevent.LifecycleEventsModule
 import com.nativemoduleproject.modules.share.ShareModule
 import com.nativemoduleproject.modules.toast.ToastModule
 import com.nativemoduleproject.uicomponent.VideoViewManager
+import kotlin.collections.ArrayList
 
 
 class CustomModulesPackage : ReactPackage {

@@ -17,6 +17,7 @@ const HomeScreen = () => {
     } catch (e) {
       console.log(e);
     }
+ 
   }, []);
 
   return (
