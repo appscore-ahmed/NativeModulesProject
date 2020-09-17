@@ -8,7 +8,9 @@ const VideoViewNativeScreen = () => {
       <VideoView
         style={styles.videoView}
         url="https://www.radiantmediaplayer.com/media/big-buck-bunny-360p.mp4"
-        play={false}
+        play
+        onEnd={(message: string) => console.log(message.nativeEvent)}
+        /* navigate back to previous screen on completion */
       />
     </View>
   );

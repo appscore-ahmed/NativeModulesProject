@@ -62,5 +62,10 @@ class ToastModule
       promise.reject(e)
     }
   }
+  
+  @ReactMethod
+  fun isPlaying(x: Any, y: Any): Unit {
+    
+  }
 
 }
