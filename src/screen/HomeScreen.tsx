@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Button, View, StyleSheet, NativeModules} from 'react-native';
+import {Button, View, StyleSheet} from 'react-native';
 import {useNavigation} from '../hooks/useNavigation';
 import lifecycle from '../native_module/Modules';
 
@@ -42,6 +42,14 @@ const HomeScreen = () => {
           title="Image Picker"
           onPress={() => {
             navigation.navigate('ImagePicker');
+          }}
+        />
+      </View>
+      <View style={styles.buttonViewStyle}>
+        <Button
+          title="Video View"
+          onPress={() => {
+            navigation.navigate('VideoView');
           }}
         />
       </View>
