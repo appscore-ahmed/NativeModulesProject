@@ -1,16 +1,20 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import VideoView from '../native_module/VideoView';
+import {useNavigation} from '../hooks/useNavigation';
 
 const VideoViewNativeScreen = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <VideoView
         style={styles.videoView}
         url="https://www.radiantmediaplayer.com/media/big-buck-bunny-360p.mp4"
         play
-        onEnd={(message: string) => console.log(message.nativeEvent)}
-        /* navigate back to previous screen on completion */
+        onEnd={async (message: string) => {
+          console.log(message.nativeEvent);
+          await navigation.navigate('Home');
+        }}
       />
     </View>
   );
