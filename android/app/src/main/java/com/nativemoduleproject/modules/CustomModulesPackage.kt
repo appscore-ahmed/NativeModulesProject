@@ -11,7 +11,9 @@ import com.nativemoduleproject.modules.imagepicker.ImagePickerModule
 import com.nativemoduleproject.modules.lifecyclerevent.LifecycleEventsModule
 import com.nativemoduleproject.modules.share.ShareModule
 import com.nativemoduleproject.modules.toast.ToastModule
+import com.nativemoduleproject.uicomponent.custom.CustomViewManager
 import com.nativemoduleproject.uicomponent.VideoViewManager
+import com.nativemoduleproject.uicomponent.video.CustomVideoView
 import kotlin.collections.ArrayList
 
 
@@ -19,6 +21,8 @@ class CustomModulesPackage : ReactPackage {
     override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
         val views: MutableList<ViewManager<*, *>> = ArrayList()
         views.add(VideoViewManager(reactContext))
+        views.add(CustomViewManager(reactContext))
+        views.add(CustomVideoView(reactContext))
         return views
     }
 

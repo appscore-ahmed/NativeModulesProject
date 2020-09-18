@@ -2,6 +2,8 @@ package com.nativemoduleproject.uicomponent
 
 import android.net.Uri
 import android.util.Log
+import android.view.View
+import android.widget.LinearLayout
 import android.widget.MediaController
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.common.MapBuilder
@@ -37,6 +39,17 @@ class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewMa
             if (isPlay) mp.start()
             Log.e("ASD", "mediaPlayer prepared ${mp.isPlaying}")
             videoView.dispatchOnFileLoaded()
+
+//            val childs = mediaController.childCount
+//            for (i in 0 until childs) {
+//                val child: View = mediaController.getChildAt(i)
+//                child.visibility = View.GONE
+//            }
+            val child = (mediaController.getChildAt(0) as LinearLayout)
+            val child2 = (child.getChildAt(0) as LinearLayout)
+            val child3 = child2.getChildAt(2)
+            child3.visibility = View.GONE
+
         }
 
         videoView.setOnCompletionListener {

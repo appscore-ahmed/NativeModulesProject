@@ -8,6 +8,7 @@ import com.facebook.react.uimanager.events.RCTEventEmitter
 
 class MyVideoView(val reactContext: ThemedReactContext) : VideoView(reactContext) {
 
+
     fun dispatchOnEnd(): Unit {
         Log.e("ASD", "dispatchOnEnd called")
         val event = Arguments.createMap()
