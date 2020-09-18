@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {View, StyleSheet} from 'react-native';
 import VideoView from '../native_module/VideoView';
 import {useNavigation} from '../hooks/useNavigation';
@@ -14,6 +14,9 @@ const VideoViewNativeScreen = () => {
         onEnd={async (message: string) => {
           console.log(message.nativeEvent);
           await navigation.navigate('Home');
+        }}
+        onLoadingFinish={(message: string) => {
+          console.log(message.nativeEvent);
         }}
       />
     </View>

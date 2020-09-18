@@ -36,6 +36,7 @@ class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewMa
         videoView.setOnPreparedListener { mp ->
             if (isPlay) mp.start()
             Log.e("ASD", "mediaPlayer prepared ${mp.isPlaying}")
+            videoView.dispatchOnFileLoaded()
         }
 
         videoView.setOnCompletionListener {
@@ -43,6 +44,11 @@ class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewMa
         }
     }
 
+    /*They basically do the same thing but in a different way.
+    Bubbling is intended for a parent component to intercept
+    and make functional change based on the action like
+    “User just tapped on this box, what do i do now?“. Direct
+     is more intended for abstract events like “image failed to load”*/
     override fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any> {
         return MapBuilder.builder<String, Any>()
                 .put("onEnd",

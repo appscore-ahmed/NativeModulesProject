@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef, useLayoutEffect} from 'react';
 import {Button, View, StyleSheet} from 'react-native';
 import {useNavigation} from '../hooks/useNavigation';
 import lifecycle from '../native_module/Modules';
@@ -17,13 +17,19 @@ const HomeScreen = () => {
     } catch (e) {
       console.log(e);
     }
- 
+  }, []);
+
+  const camera = useRef<Button>();
+
+  useLayoutEffect(() => {
+    console.log(camera.current?.props.title);
   }, []);
 
   return (
     <View style={styles.container}>
       <View style={styles.buttonViewStyle}>
         <Button
+          ref={camera}
           title="Camera"
           onPress={() => {
             navigation.navigate('Camera');
