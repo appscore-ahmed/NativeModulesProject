@@ -2,6 +2,7 @@ package com.nativemoduleproject.uicomponent
 
 import android.media.MediaPlayer
 import android.net.Uri
+import android.os.AsyncTask
 import android.util.Log
 import android.view.View
 import android.widget.MediaController
@@ -49,6 +50,13 @@ class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewMa
         if (isPlay) videoView.start()
         else videoView.pause()
         Log.e("ASD", "duration: ${videoView.duration}")
+
+        AsyncTask.execute {
+            while (true) {
+                Log.e("ASD", "Playing")
+                videoView.dispatchOnClick(videoView.currentPosition)
+            }
+        }
     }
 
     /*They basically do the same thing but in a different way.
@@ -68,17 +76,11 @@ class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewMa
         _videoView.dispatchOnFileLoaded()
         isPrepared = true
 
-        /*       val childs = mediaController.childCount
-       for (i in 0 until childs) {
-           val child: View = mediaController.getChildAt(i)
-           child.visibility = View.GONE
-       }*/
-
-/*            val child = (mediaController.getChildAt(0) as LinearLayout)
-            val child2 = (child.getChildAt(0) as LinearLayout)
-            val child3 = child2.getChildAt(2)
-            child3.visibility = View.GONE*/
-
+//        val handler = Handler()
+//        val runnable = Runnable {
+//            Log.e("ASD", "Playing")
+//            handler.postDelayed(this, 2000)
+//        }
     }
 
     override fun onCompletion(mp: MediaPlayer?) {

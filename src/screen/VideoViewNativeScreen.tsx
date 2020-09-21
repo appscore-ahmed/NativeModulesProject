@@ -17,6 +17,8 @@ const VideoViewNativeScreen = () => {
     }, 5000);
   };
 
+  let progress= 0
+
   return (
     <View style={styles.container}>
       <VideoView
@@ -35,9 +37,10 @@ const VideoViewNativeScreen = () => {
         }}
         onClick={(message: string) => {
           console.log(message.nativeEvent);
-          setFileLoaded(true);
-          setHide(false);
-          hideWithTimeout(true);
+          // setFileLoaded(true);
+          // setHide(false);
+          // hideWithTimeout(true);
+          // progress = 
         }}
       />
       {isFileLoaded && !hide ? (

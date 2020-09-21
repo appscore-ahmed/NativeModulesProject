@@ -29,10 +29,11 @@ class MyVideoView(val reactContext: ThemedReactContext) : VideoView(reactContext
         * It is already registered.*/
     }
 
-    fun dispatchOnClick(): Unit {
+    fun dispatchOnClick(value: Int=0): Unit {
         Log.e("ASD", "dispatchOnClick called")
         val event = Arguments.createMap()
         event.putString("message", "clicked")
+        event.putInt("progress", value)
         reactContext.getJSModule(RCTEventEmitter::class.java).receiveEvent(id, "topClick", event)
     }
 }
