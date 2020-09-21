@@ -1,9 +1,9 @@
 package com.nativemoduleproject.uicomponent
 
+import android.media.MediaPlayer
 import android.net.Uri
 import android.util.Log
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.MediaController
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.common.MapBuilder
@@ -11,7 +11,7 @@ import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
 
-class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewManager<MyVideoView>() {
+class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewManager<MyVideoView>(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, View.OnClickListener {
 
     private val mediaController = MediaController(reactContext.currentActivity)
 
@@ -21,40 +21,29 @@ class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewMa
         return MyVideoView(reactContext)
     }
 
+    private lateinit var _videoView: MyVideoView
+
     @ReactProp(name = "url")
     fun setVideoPath(videoView: MyVideoView, urlPath: String): Unit {
         val uri = Uri.parse(urlPath)
+
+        _videoView = videoView
+        videoView.setOnPreparedListener(this)
+        videoView.setOnCompletionListener(this)
+        videoView.setOnClickListener(this)
 
         videoView.setVideoURI(uri)
         videoView.requestFocus()
 
         mediaController.setAnchorView(videoView)
-        videoView.setMediaController(mediaController)
+//        videoView.setMediaController(mediaController)
 
     }
 
     @ReactProp(name = "play")
     fun setPlay(videoView: MyVideoView, isPlay: Boolean) {
-        videoView.setOnPreparedListener { mp ->
-            if (isPlay) mp.start()
-            Log.e("ASD", "mediaPlayer prepared ${mp.isPlaying}")
-            videoView.dispatchOnFileLoaded()
-
-//            val childs = mediaController.childCount
-//            for (i in 0 until childs) {
-//                val child: View = mediaController.getChildAt(i)
-//                child.visibility = View.GONE
-//            }
-            val child = (mediaController.getChildAt(0) as LinearLayout)
-            val child2 = (child.getChildAt(0) as LinearLayout)
-            val child3 = child2.getChildAt(2)
-            child3.visibility = View.GONE
-
-        }
-
-        videoView.setOnCompletionListener {
-            videoView.dispatchOnEnd()
-        }
+        if (isPlay) videoView.start()
+        else videoView.pause()
     }
 
     /*They basically do the same thing but in a different way.
@@ -67,6 +56,32 @@ class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewMa
                 .put("onEnd",
                         MapBuilder.of("registrationName", "onEnd"))
                 .build()
+    }
+
+    override fun onPrepared(mp: MediaPlayer?) {
+        Log.e("ASD", "mediaPlayer prepared ${mp?.isPlaying}")
+        _videoView.dispatchOnFileLoaded()
+
+        /*       val childs = mediaController.childCount
+       for (i in 0 until childs) {
+           val child: View = mediaController.getChildAt(i)
+           child.visibility = View.GONE
+       }*/
+
+/*            val child = (mediaController.getChildAt(0) as LinearLayout)
+            val child2 = (child.getChildAt(0) as LinearLayout)
+            val child3 = child2.getChildAt(2)
+            child3.visibility = View.GONE*/
+    }
+
+    override fun onCompletion(mp: MediaPlayer?) {
+        Log.e("ASD", "mediaPlayer prepared ${mp?.isPlaying}")
+        _videoView.dispatchOnEnd()
+    }
+
+    override fun onClick(v: View?) {
+        Log.e("ASD", "video clicked")
+        _videoView.dispatchOnClick()
     }
 
 }
