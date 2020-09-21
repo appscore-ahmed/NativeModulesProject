@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Button} from 'react-native';
+import {View, StyleSheet, Button, Modal, TouchableOpacity} from 'react-native';
 import VideoView from '../native_module/VideoView';
 import {useNavigation} from '../hooks/useNavigation';
+import Slider from '@react-native-community/slider';
 
 const VideoViewNativeScreen = () => {
   const navigation = useNavigation();
   const [play, setPlay] = useState<Boolean>(true);
   const [isFileLoaded, setFileLoaded] = useState<Boolean>(false);
-  const [hide, setHide] = useState<Boolean>(true);
+  const [hide, setHide] = useState<Boolean>(false);
+  const [seek, setSeek] = useState<number>(0);
 
   const hideWithTimeout = (isHide: Boolean) => {
     setTimeout(() => {
@@ -21,6 +23,7 @@ const VideoViewNativeScreen = () => {
         style={styles.videoView}
         url="https://www.radiantmediaplayer.com/media/big-buck-bunny-360p.mp4"
         play={play}
+        seek={seek}
         onEnd={async (message: string) => {
           console.log(message.nativeEvent);
           await navigation.navigate('Home');
@@ -28,25 +31,51 @@ const VideoViewNativeScreen = () => {
         onLoadingFinish={(message: string) => {
           console.log(message.nativeEvent);
           setFileLoaded(true);
-          hideWithTimeout(false);
+          hideWithTimeout(true);
         }}
         onClick={(message: string) => {
           console.log(message.nativeEvent);
           setFileLoaded(true);
-          setHide(true);
-          hideWithTimeout(false);
+          setHide(false);
+          hideWithTimeout(true);
         }}
       />
-      {isFileLoaded && hide ? (
-        <View>
-          <Button
-            title={play ? 'Pause' : 'Play'}
+      {isFileLoaded && !hide ? (
+        <Modal
+          transparent={true}
+          animationType={'fade'}
+          visible={true}
+          style={styles.controllers /* {zIndex: 1100} */}
+          onRequestClose={() => {
+            // setHide(!hide);
+          }}>
+          <TouchableOpacity
+            style={styles.container}
+            activeOpacity={1}
             onPress={() => {
-              console.log(!play);
-              setPlay(!play);
-            }}
-          />
-        </View>
+              console.log('touched ' + hide);
+              setHide(!hide);
+            }}>
+            <View style={styles.container}>
+              <View style={styles.controllers}>
+                <Button
+                  title={play ? 'Pause' : 'Play'}
+                  onPress={() => {
+                    console.log(!play);
+                    setPlay(!play);
+                  }}
+                />
+              </View>
+              <Slider
+                maximumValue={100}
+                minimumValue={0}
+                step={1}
+                value={seek}
+                onValueChange={(value: number) => setSeek(value)}
+              />
+            </View>
+          </TouchableOpacity>
+        </Modal>
       ) : null}
     </View>
   );
@@ -54,6 +83,7 @@ const VideoViewNativeScreen = () => {
 
 const styles = StyleSheet.create({
   container: {flex: 1 /* justifyContent: 'center', alignItems: 'center' */},
+  controllers: {flex: 1, justifyContent: 'center', alignSelf: 'center'},
   videoView: {flex: 1, width: '100%', height: '100%'},
 });
 

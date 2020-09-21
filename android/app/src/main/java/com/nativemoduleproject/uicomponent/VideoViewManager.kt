@@ -5,11 +5,13 @@ import android.net.Uri
 import android.util.Log
 import android.view.View
 import android.widget.MediaController
+import android.widget.VideoView
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.common.MapBuilder
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
+import kotlin.math.floor
 
 class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewManager<MyVideoView>(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, View.OnClickListener {
 
@@ -22,6 +24,8 @@ class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewMa
     }
 
     private lateinit var _videoView: MyVideoView
+
+    private var isPrepared = false;
 
     @ReactProp(name = "url")
     fun setVideoPath(videoView: MyVideoView, urlPath: String): Unit {
@@ -44,6 +48,7 @@ class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewMa
     fun setPlay(videoView: MyVideoView, isPlay: Boolean) {
         if (isPlay) videoView.start()
         else videoView.pause()
+        Log.e("ASD", "duration: ${videoView.duration}")
     }
 
     /*They basically do the same thing but in a different way.
@@ -61,6 +66,7 @@ class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewMa
     override fun onPrepared(mp: MediaPlayer?) {
         Log.e("ASD", "mediaPlayer prepared ${mp?.isPlaying}")
         _videoView.dispatchOnFileLoaded()
+        isPrepared = true
 
         /*       val childs = mediaController.childCount
        for (i in 0 until childs) {
@@ -72,6 +78,7 @@ class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewMa
             val child2 = (child.getChildAt(0) as LinearLayout)
             val child3 = child2.getChildAt(2)
             child3.visibility = View.GONE*/
+
     }
 
     override fun onCompletion(mp: MediaPlayer?) {
@@ -83,5 +90,17 @@ class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewMa
         Log.e("ASD", "video clicked")
         _videoView.dispatchOnClick()
     }
+
+    @ReactProp(name = "seek")
+    fun seekTo(videoView: VideoView, percentage: Int): Unit {
+        if (isPrepared) {
+            Log.e("ASD", "duration is : ${videoView.duration}")
+            Log.e("ASD", "percentage is : $percentage")
+            val percentToMsc = floor((videoView.duration * percentage).toDouble() / 100).toInt()
+            Log.e("ASD", "percentage is : $percentToMsc")
+            videoView.seekTo(percentToMsc)
+        }
+    }
+
 
 }

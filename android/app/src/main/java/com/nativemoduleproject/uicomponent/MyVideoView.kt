@@ -28,8 +28,9 @@ class MyVideoView(val reactContext: ThemedReactContext) : VideoView(reactContext
         * getExportedCustomDirectEventTypeConstants or other method.
         * It is already registered.*/
     }
+
     fun dispatchOnClick(): Unit {
-                Log.e("ASD", "dispatchOnClick called")
+        Log.e("ASD", "dispatchOnClick called")
         val event = Arguments.createMap()
         event.putString("message", "clicked")
         reactContext.getJSModule(RCTEventEmitter::class.java).receiveEvent(id, "topClick", event)
