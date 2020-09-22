@@ -11,7 +11,6 @@ import com.facebook.react.common.MapBuilder
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
-import kotlin.math.floor
 
 class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewManager<MyVideoView>(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, View.OnClickListener {
 
@@ -27,6 +26,11 @@ class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewMa
 
     private var isPrepared = false;
 
+    private lateinit var globalThread: Thread
+
+    var isUserDragging = false
+    private var duration = 0
+
     @ReactProp(name = "url")
     fun setVideoPath(videoView: MyVideoView, urlPath: String): Unit {
         val uri = Uri.parse(urlPath)
@@ -40,15 +44,19 @@ class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewMa
         videoView.requestFocus()
 
         mediaController.setAnchorView(videoView)
-//        videoView.setMediaController(mediaController)
-
     }
 
     @ReactProp(name = "play")
     fun setPlay(videoView: MyVideoView, isPlay: Boolean) {
-        if (isPlay) videoView.start()
-        else videoView.pause()
-        Log.e("ASD", "duration: ${videoView.duration}")
+        if (isPlay) {
+            videoView.start()
+            runProgressFeeder(videoView)
+        } else {
+            isUserDragging = true
+            videoView.pause()
+            globalThread.interrupt()
+            Log.e("ASDD", "video is pause $isUserDragging")
+        }
     }
 
     /*They basically do the same thing but in a different way.
@@ -66,35 +74,11 @@ class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewMa
     }
 
     override fun onPrepared(mp: MediaPlayer?) {
-        Log.e("ASD", "mediaPlayer prepared ${mp?.isPlaying}")
+        Log.e("bbb", "mediaPlayer prepared ${mp?.isPlaying}")
         _videoView.dispatchOnFileLoaded()
         isPrepared = true
-
-        val duration = _videoView.duration
+        duration = _videoView.duration
         _videoView.dispatchTotalProgress(duration)
-
-        val runnable = Runnable {
-
-            do {
-                Log.e("ASD", "Playing")
-                Log.e("ASD", "duration: $duration")
-                Log.e("ASD", "${_videoView.currentPosition}")
-                val current = _videoView.currentPosition
-                if (duration != 0 && current > 1)
-                    _videoView.dispatchProgressStatus(current)
-                try {
-                    Thread.sleep(100)
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
-                    break;
-                }
-            } while (_videoView.currentPosition < duration)
-            return@Runnable
-        }
-        val thread = Thread(runnable)
-        thread.start()
-
-
     }
 
     override fun onCompletion(mp: MediaPlayer?) {
@@ -108,15 +92,44 @@ class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewMa
     }
 
     @ReactProp(name = "seek")
-    fun seekTo(videoView: VideoView, percentage: Int): Unit {
-        if (isPrepared) {
-            Log.e("ASD", "duration is : ${videoView.duration}")
-            Log.e("ASD", "percentage is : $percentage")
-//            val percentToMsc = //floor((videoView.duration * percentage).toDouble() / 100).toInt()
-//            Log.e("ASD", "percentage is : $percentToMsc")
-//            videoView.seekTo(percentage)
+    fun seekTo(videoView: VideoView, progress: Int): Unit {
+        Log.e("ASD", "isUserDragging : ${isUserDragging}")
+        if (isPrepared && isUserDragging) {
+            Log.e("seek", "percentage is : $progress")
+            videoView.seekTo(progress)
+            isUserDragging = false
         }
     }
 
+    private fun runProgressFeeder(videoView: MyVideoView) {
+        val runnable = Runnable {
 
+            while (true) {
+                Log.e("ASD", "running")
+                if (isPrepared) {
+//                    Log.e("ASD", "Playing")
+//                    Log.e("ASD", "duration: $duration")
+//                    Log.e("ASD", "${videoView.currentPosition}")
+                    val current = videoView.currentPosition
+                    val isPlaying = videoView.isPlaying
+
+                    if (duration != 0 && current > 1) {
+                        Log.e("ASDD", "playing >>>> $isPlaying")
+                        videoView.dispatchProgressStatus(current)
+                    }
+
+                    try {
+                        Thread.sleep(100)
+                    } catch (e: InterruptedException) {
+                        e.printStackTrace()
+                        break;
+                    }
+                }
+            } /*while (videoView.currentPosition < duration)*/
+
+        }
+        val thread = Thread(runnable)
+        globalThread = thread
+        thread.start()
+    }
 }

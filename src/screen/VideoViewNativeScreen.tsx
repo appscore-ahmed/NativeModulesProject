@@ -44,11 +44,11 @@ const VideoViewNativeScreen = () => {
           hideWithTimeout(true);
         }}
         totalProgress={(totalProgress: number) => {
-          console.log(totalProgress.nativeEvent.totalProgress)
+          console.log(totalProgress.nativeEvent.totalProgress);
           setTotalProgress(totalProgress.nativeEvent.totalProgress);
         }}
         onProgress={(progress: number) => {
-          console.log(progress.nativeEvent);
+          // console.log(progress.nativeEvent);
           setSeek(progress.nativeEvent.progress);
         }}
       />
@@ -84,15 +84,20 @@ const VideoViewNativeScreen = () => {
                 step={1}
                 value={seek}
                 onValueChange={(value: number) => {
+                  // setSeek(value);
+                }}
+                onSlidingStart={(value: number) => {
+                  console.log('sliding started ' + value);
+                  setPlay(false);
+                  setHide(false);
+                }}
+                onSlidingComplete={(value: number) => {
+                  console.log('sliding stopped ' + value);
                   setSeek(value);
+                  setPlay(true);
+                  setHide(true);
                 }}
               />
-              {/* <Seekbar
-                videoProgress={seek}
-                getUserSeek={(progress: number) => {
-                  setSeek(progress);
-                }}
-              /> */}
             </View>
           </TouchableOpacity>
         </Modal>
