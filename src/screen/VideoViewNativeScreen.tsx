@@ -2,7 +2,10 @@ import React, {useState} from 'react';
 import {View, StyleSheet, Button, Modal, TouchableOpacity} from 'react-native';
 import VideoView from '../native_module/VideoView';
 import {useNavigation} from '../hooks/useNavigation';
+import Seekbar from '../components/SeekbarComponent';
 import Slider from '@react-native-community/slider';
+
+let progress = 0;
 
 const VideoViewNativeScreen = () => {
   const navigation = useNavigation();
@@ -10,14 +13,13 @@ const VideoViewNativeScreen = () => {
   const [isFileLoaded, setFileLoaded] = useState<Boolean>(false);
   const [hide, setHide] = useState<Boolean>(false);
   const [seek, setSeek] = useState<number>(0);
+  const [totalProgress, setTotalProgress] = useState<number>(0);
 
   const hideWithTimeout = (isHide: Boolean) => {
     setTimeout(() => {
       setHide(isHide);
     }, 5000);
   };
-
-  let progress= 0
 
   return (
     <View style={styles.container}>
@@ -37,10 +39,17 @@ const VideoViewNativeScreen = () => {
         }}
         onClick={(message: string) => {
           console.log(message.nativeEvent);
-          // setFileLoaded(true);
-          // setHide(false);
-          // hideWithTimeout(true);
-          // progress = 
+          setFileLoaded(true);
+          setHide(false);
+          hideWithTimeout(true);
+        }}
+        totalProgress={(totalProgress: number) => {
+          console.log(totalProgress.nativeEvent.totalProgress)
+          setTotalProgress(totalProgress.nativeEvent.totalProgress);
+        }}
+        onProgress={(progress: number) => {
+          console.log(progress.nativeEvent);
+          setSeek(progress.nativeEvent.progress);
         }}
       />
       {isFileLoaded && !hide ? (
@@ -70,12 +79,20 @@ const VideoViewNativeScreen = () => {
                 />
               </View>
               <Slider
-                maximumValue={100}
+                maximumValue={totalProgress}
                 minimumValue={0}
                 step={1}
                 value={seek}
-                onValueChange={(value: number) => setSeek(value)}
+                onValueChange={(value: number) => {
+                  setSeek(value);
+                }}
               />
+              {/* <Seekbar
+                videoProgress={seek}
+                getUserSeek={(progress: number) => {
+                  setSeek(progress);
+                }}
+              /> */}
             </View>
           </TouchableOpacity>
         </Modal>

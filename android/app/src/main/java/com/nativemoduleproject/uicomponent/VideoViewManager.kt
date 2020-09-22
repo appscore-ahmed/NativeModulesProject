@@ -2,7 +2,6 @@ package com.nativemoduleproject.uicomponent
 
 import android.media.MediaPlayer
 import android.net.Uri
-import android.os.AsyncTask
 import android.util.Log
 import android.view.View
 import android.widget.MediaController
@@ -50,13 +49,6 @@ class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewMa
         if (isPlay) videoView.start()
         else videoView.pause()
         Log.e("ASD", "duration: ${videoView.duration}")
-
-        AsyncTask.execute {
-            while (true) {
-                Log.e("ASD", "Playing")
-                videoView.dispatchOnClick(videoView.currentPosition)
-            }
-        }
     }
 
     /*They basically do the same thing but in a different way.
@@ -68,6 +60,8 @@ class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewMa
         return MapBuilder.builder<String, Any>()
                 .put("onEnd",
                         MapBuilder.of("registrationName", "onEnd"))
+                .put("onProgress", MapBuilder.of("registrationName", "onProgress"))
+                .put("totalProgress", MapBuilder.of("registrationName", "totalProgress"))
                 .build()
     }
 
@@ -76,11 +70,31 @@ class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewMa
         _videoView.dispatchOnFileLoaded()
         isPrepared = true
 
-//        val handler = Handler()
-//        val runnable = Runnable {
-//            Log.e("ASD", "Playing")
-//            handler.postDelayed(this, 2000)
-//        }
+        val duration = _videoView.duration
+        _videoView.dispatchTotalProgress(duration)
+
+        val runnable = Runnable {
+
+            do {
+                Log.e("ASD", "Playing")
+                Log.e("ASD", "duration: $duration")
+                Log.e("ASD", "${_videoView.currentPosition}")
+                val current = _videoView.currentPosition
+                if (duration != 0 && current > 1)
+                    _videoView.dispatchProgressStatus(current)
+                try {
+                    Thread.sleep(100)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                    break;
+                }
+            } while (_videoView.currentPosition < duration)
+            return@Runnable
+        }
+        val thread = Thread(runnable)
+        thread.start()
+
+
     }
 
     override fun onCompletion(mp: MediaPlayer?) {
@@ -98,9 +112,9 @@ class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewMa
         if (isPrepared) {
             Log.e("ASD", "duration is : ${videoView.duration}")
             Log.e("ASD", "percentage is : $percentage")
-            val percentToMsc = floor((videoView.duration * percentage).toDouble() / 100).toInt()
-            Log.e("ASD", "percentage is : $percentToMsc")
-            videoView.seekTo(percentToMsc)
+//            val percentToMsc = //floor((videoView.duration * percentage).toDouble() / 100).toInt()
+//            Log.e("ASD", "percentage is : $percentToMsc")
+//            videoView.seekTo(percentage)
         }
     }
 
