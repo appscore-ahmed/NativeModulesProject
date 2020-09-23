@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, RefObject} from 'react';
 import {
   View,
   StyleSheet,
@@ -7,7 +7,17 @@ import {
   Image,
   Modal,
 } from 'react-native';
-import {RNCamera} from 'react-native-camera';
+import {
+  CameraStatus,
+  RecordAudioPermissionStatus,
+  RNCamera,
+} from 'react-native-camera';
+
+interface props {
+  cameraRef: RefObject<RNCamera>;
+  status: CameraStatus;
+  recordAudioPermissionStatus: RecordAudioPermissionStatus;
+}
 
 const CameraNPMScreen = () => {
   const cameraRef = useRef<RNCamera>(null);
@@ -15,7 +25,7 @@ const CameraNPMScreen = () => {
   const [imageSource, setImageSource] = useState<string | undefined>('');
   const [modalVisibility, setModalVisibility] = useState<Boolean>(true);
 
-  const takePicture = async () => {
+  const takePicture = async (/* cameraRef: RefObject<RNCamera> */) => {
     if (cameraRef) {
       try {
         const options = {quality: 0.5, base64: true};
@@ -74,11 +84,39 @@ const CameraNPMScreen = () => {
               <Text style={{fontSize: 14}}> Flip </Text>
             </TouchableOpacity>
           </View>
+          {/* {(props: props) => {
+            if (props.status !== 'READY') return <PendingView />;
+            return (
+              <View
+                style={{
+                  flex: 0,
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                }}>
+                <TouchableOpacity
+                  onPress={() => takePicture(props.cameraRef)}
+                  style={styles.capture}>
+                  <Text style={{fontSize: 14}}> SNAP </Text>
+                </TouchableOpacity>
+              </View>
+            );
+          }} */}
         </Modal>
       </View>
     </View>
   );
 };
+const PendingView = () => (
+  <View
+    style={{
+      flex: 1,
+      backgroundColor: 'lightgreen',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}>
+    <Text>Waiting</Text>
+  </View>
+);
 
 const styles = StyleSheet.create({
   camera: {flex: 1},
