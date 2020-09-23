@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Button, Modal, TouchableOpacity} from 'react-native';
 import VideoView from '../native_module/VideoView';
 import {useNavigation} from '../hooks/useNavigation';
 import Seekbar from '../components/SeekbarComponent';
 import Slider from '@react-native-community/slider';
+import Orientation from 'react-native-orientation-locker';
 
 let progress = 0;
 
@@ -14,11 +15,24 @@ const VideoViewNativeScreen = () => {
   const [hide, setHide] = useState<Boolean>(false);
   const [seek, setSeek] = useState<number>(0);
   const [totalProgress, setTotalProgress] = useState<number>(0);
+  const [isFullscreen, setFullscreen] = useState<Boolean>(false);
+
+  useEffect(() => {
+    Orientation.lockToAllOrientationsButUpsideDown();
+  }, []);
 
   const hideWithTimeout = (isHide: Boolean) => {
     setTimeout(() => {
       setHide(isHide);
     }, 5000);
+  };
+
+  const setViewFullscreen = () => {
+    if (isFullscreen) {
+      Orientation.lockToLandscape();
+    } else {
+      Orientation.lockToPortrait();
+    }
   };
 
   return (
@@ -77,6 +91,15 @@ const VideoViewNativeScreen = () => {
                     setPlay(!play);
                   }}
                 />
+                
+                <Button
+                  title={isFullscreen ? 'Original Screen' : 'Fullscreen'}
+                  onPress={() => {
+                    setFullscreen(!isFullscreen);
+                    setViewFullscreen();
+                  }}
+                />
+                
               </View>
               <Slider
                 maximumValue={totalProgress}
@@ -108,7 +131,13 @@ const VideoViewNativeScreen = () => {
 
 const styles = StyleSheet.create({
   container: {flex: 1 /* justifyContent: 'center', alignItems: 'center' */},
-  controllers: {flex: 1, justifyContent: 'center', alignSelf: 'center'},
+  controllers: {
+    flex: 1,
+    justifyContent: 'space-around',
+    // alignSelf: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   videoView: {flex: 1, width: '100%', height: '100%'},
 });
 

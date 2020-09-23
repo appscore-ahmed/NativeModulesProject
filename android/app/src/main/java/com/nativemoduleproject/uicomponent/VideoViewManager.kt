@@ -14,22 +14,18 @@ import com.facebook.react.uimanager.annotations.ReactProp
 
 class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewManager<MyVideoView>(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, View.OnClickListener {
 
-    private val mediaController = MediaController(reactContext.currentActivity)
-
     override fun getName(): String = "VideoView"
+    private lateinit var _videoView: MyVideoView
+    private var isPrepared = false;
+    private lateinit var globalThread: Thread
+    private var isUserDragging = false
+    private var duration = 0
+
+    private val mediaController = MediaController(reactContext.currentActivity)
 
     override fun createViewInstance(reactContext: ThemedReactContext): MyVideoView {
         return MyVideoView(reactContext)
     }
-
-    private lateinit var _videoView: MyVideoView
-
-    private var isPrepared = false;
-
-    private lateinit var globalThread: Thread
-
-    var isUserDragging = false
-    private var duration = 0
 
     @ReactProp(name = "url")
     fun setVideoPath(videoView: MyVideoView, urlPath: String): Unit {
@@ -57,20 +53,6 @@ class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewMa
             globalThread.interrupt()
             Log.e("ASDD", "video is pause $isUserDragging")
         }
-    }
-
-    /*They basically do the same thing but in a different way.
-    Bubbling is intended for a parent component to intercept
-    and make functional change based on the action like
-    “User just tapped on this box, what do i do now?“. Direct
-     is more intended for abstract events like “image failed to load”*/
-    override fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any> {
-        return MapBuilder.builder<String, Any>()
-                .put("onEnd",
-                        MapBuilder.of("registrationName", "onEnd"))
-                .put("onProgress", MapBuilder.of("registrationName", "onProgress"))
-                .put("totalProgress", MapBuilder.of("registrationName", "totalProgress"))
-                .build()
     }
 
     override fun onPrepared(mp: MediaPlayer?) {
@@ -131,5 +113,19 @@ class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewMa
         val thread = Thread(runnable)
         globalThread = thread
         thread.start()
+    }
+
+    /*They basically do the same thing but in a different way.
+    Bubbling is intended for a parent component to intercept
+    and make functional change based on the action like
+    “User just tapped on this box, what do i do now?“. Direct
+     is more intended for abstract events like “image failed to load”*/
+    override fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any> {
+        return MapBuilder.builder<String, Any>()
+                .put("onEnd",
+                        MapBuilder.of("registrationName", "onEnd"))
+                .put("onProgress", MapBuilder.of("registrationName", "onProgress"))
+                .put("totalProgress", MapBuilder.of("registrationName", "totalProgress"))
+                .build()
     }
 }
