@@ -91,7 +91,7 @@ const VideoViewNativeScreen = () => {
                     setPlay(!play);
                   }}
                 />
-                
+
                 <Button
                   title={isFullscreen ? 'Original Screen' : 'Fullscreen'}
                   onPress={() => {
@@ -99,7 +99,6 @@ const VideoViewNativeScreen = () => {
                     setViewFullscreen();
                   }}
                 />
-                
               </View>
               <Slider
                 maximumValue={totalProgress}

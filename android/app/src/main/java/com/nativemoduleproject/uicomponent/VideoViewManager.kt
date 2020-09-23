@@ -66,6 +66,7 @@ class VideoViewManager(val reactContext: ReactApplicationContext) : SimpleViewMa
     override fun onCompletion(mp: MediaPlayer?) {
         Log.e("ASD", "mediaPlayer prepared ${mp?.isPlaying}")
         _videoView.dispatchOnEnd()
+        globalThread.interrupt()
     }
 
     override fun onClick(v: View?) {
