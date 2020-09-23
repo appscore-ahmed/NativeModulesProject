@@ -6,6 +6,7 @@ import CameraScreen from './src/screen/CameraScreen';
 import GeolocationScreen from './src/screen/GeolocationScreen';
 import ImagePickerScreen from './src/screen/ImagePickerScreen';
 import VideoViewNativeScreen from './src/screen/VideoViewNativeScreen';
+import NPMHomeScreen from './src/screen/NPMHomeScreen';
 import CameraNPMScreen from './src/screen/CameraNPMScreen';
 
 const navigator = createStackNavigator(
@@ -40,6 +41,12 @@ const navigator = createStackNavigator(
         headerShown: false,
       },
     },
+    NPM: {
+      screen: NPMHomeScreen,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
     CameraNPM: {
       screen: CameraNPMScreen,
       navigationOptions: {
@@ -48,7 +55,7 @@ const navigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'CameraNPM',
+    initialRouteName: 'Home',
     defaultNavigationOptions: {
       title: 'Native Module',
     },

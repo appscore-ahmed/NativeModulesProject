@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useLayoutEffect} from 'react';
-import {Button, View, StyleSheet} from 'react-native';
+import {Button, View, StyleSheet, Text} from 'react-native';
 import {useNavigation} from '../hooks/useNavigation';
 import lifecycle from '../native_module/Modules';
 
@@ -57,6 +57,15 @@ const HomeScreen = () => {
           title="Video View"
           onPress={() => {
             navigation.navigate('VideoView');
+          }}
+        />
+      </View>
+      <View style={styles.buttonViewStyle}>
+        <Text> NPM Packages </Text>
+        <Button
+          title="NPM"
+          onPress={() => {
+            navigation.navigate('NPM');
           }}
         />
       </View>

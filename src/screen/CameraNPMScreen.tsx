@@ -12,6 +12,7 @@ import {
   RecordAudioPermissionStatus,
   RNCamera,
 } from 'react-native-camera';
+import {useNavigation} from '../hooks/useNavigation';
 
 interface props {
   cameraRef: RefObject<RNCamera>;
@@ -20,6 +21,7 @@ interface props {
 }
 
 const CameraNPMScreen = () => {
+  const navigation = useNavigation();
   const cameraRef = useRef<RNCamera>(null);
   const [cameraType, setCameraType] = useState<Boolean>(false);
   const [imageSource, setImageSource] = useState<string | undefined>('');
@@ -71,6 +73,7 @@ const CameraNPMScreen = () => {
           // style={styles.captureView /* {zIndex: 1100} */}
           onRequestClose={() => {
             setModalVisibility(!modalVisibility);
+            navigation.goBack();
           }}>
           <View style={styles.buttonView}>
             <TouchableOpacity onPress={takePicture} style={styles.capture}>
