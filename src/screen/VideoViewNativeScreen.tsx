@@ -109,6 +109,7 @@ const VideoViewNativeScreen = () => {
                 value={seek}
                 onValueChange={(value: number) => {
                   // setSeek(value);
+                  setHide(false);
                 }}
                 onSlidingStart={(value: number) => {
                   console.log('sliding started ' + value);
