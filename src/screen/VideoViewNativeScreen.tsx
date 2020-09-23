@@ -73,8 +73,9 @@ const VideoViewNativeScreen = () => {
           visible={true}
           style={styles.controllers /* {zIndex: 1100} */}
           onRequestClose={() => {
-            // setHide(!hide);
-          }}>
+            setHide(!hide);
+          }}
+          >
           <TouchableOpacity
             style={styles.container}
             activeOpacity={1}
@@ -101,6 +102,7 @@ const VideoViewNativeScreen = () => {
                 />
               </View>
               <Slider
+                style={styles.slider}
                 maximumValue={totalProgress}
                 minimumValue={0}
                 step={1}
@@ -138,6 +140,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   videoView: {flex: 1, width: '100%', height: '100%'},
+  slider: {
+    width: '100%',
+    height: 50,
+    backgroundColor: 'rgba(0,0,0,0.2)',
+  },
 });
 
 export default VideoViewNativeScreen;
