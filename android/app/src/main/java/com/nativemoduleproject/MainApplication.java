@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import org.reactnative.camera.RNCameraPackage;
 import org.wonday.orientation.OrientationPackage;
 import com.reactnativecommunity.slider.ReactSliderPackage;
 import com.facebook.react.ReactInstanceManager;

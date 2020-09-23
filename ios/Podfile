@@ -13,6 +13,8 @@ target 'NativeModuleProject' do
 
   pod 'react-native-slider', :path => '../node_modules/@react-native-community/slider'
 
+  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+
   target 'NativeModuleProjectTests' do
     inherit! :complete
     # Pods for testing
