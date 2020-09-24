@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Text, Button, ActivityIndicator} from 'react-native';
+import {View, StyleSheet, Text, Button, PermissionsAndroid} from 'react-native';
 import GeolocationService from 'react-native-geolocation-service';
 
 interface coords {
@@ -16,22 +16,44 @@ interface position {
   altitudeAccuracy: number | null;
 }
 
+const hasAndroidPermissions = async () => {
+  const permission_fine_location =
+    PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION;
+  const permission_coarse_location =
+    PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION;
+
+  const hadPermission =
+    (await PermissionsAndroid.check(permission_fine_location)) &&
+    (await PermissionsAndroid.check(permission_coarse_location));
+  if (hadPermission) return true;
+  const status = await PermissionsAndroid.requestMultiple([
+    permission_fine_location,
+    permission_coarse_location,
+  ]);
+  return (
+    status['android.permission.ACCESS_FINE_LOCATION'] === 'granted' &&
+    status['android.permission.ACCESS_COARSE_LOCATION'] === 'granted'
+  );
+};
+
 const GeolocationNPMScreen = () => {
   const [position, setPosition] = useState<coords>();
   const getLocation = () => {
-    GeolocationService.getCurrentPosition(
-      (position) => {
-        setPosition(position);
-        console.log(position);
-      },
-      (error) => console.log(error.code, error.message),
-      {
-        enableHighAccuracy: true,
-        timeout: 15000,
-        maximumAge: 10000,
-        showLocationDialog: true,
-      },
-    );
+    /* if (hasAndroidPermissions()) console.log('permission granted');
+    else */
+      GeolocationService.getCurrentPosition(
+        (position) => {
+          setPosition(position);
+          console.log(position);
+        },
+        (error) => console.log(error.code, error.message),
+        {
+          enableHighAccuracy: true,
+          timeout: 15000,
+          maximumAge: 10000,
+          showLocationDialog: true,
+        },
+      );
   };
   return (
     <View style={styles.container}>
