@@ -18,7 +18,7 @@ const NPMHomeScreen = () => {
         <Button
           title="Location"
           onPress={() => {
-            navigation.navigate('CameraNPM');
+            navigation.navigate('GeolocationNPM');
           }}
         />
       </View>
