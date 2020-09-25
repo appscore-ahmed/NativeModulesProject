@@ -16,9 +16,17 @@ const NPMHomeScreen = () => {
       </View>
       <View style={styles.rowButtonViewStyle}>
         <Button
-          title="Location"
+          title="Location NPM"
           onPress={() => {
             navigation.navigate('GeolocationNPM');
+          }}
+        />
+      </View>
+      <View style={styles.rowButtonViewStyle}>
+        <Button
+          title="CameraRoll NPM"
+          onPress={() => {
+            navigation.navigate('CameraRollNPM');
           }}
         />
       </View>
@@ -29,12 +37,12 @@ const NPMHomeScreen = () => {
 const styles = StyleSheet.create({
   rowContainer: {
     flex: 1,
-    flexDirection: 'row',
+    // flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
   rowButtonViewStyle: {
-    marginHorizontal: 20,
+    marginVertical: 20,
   },
 });
 

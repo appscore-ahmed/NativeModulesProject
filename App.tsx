@@ -69,7 +69,7 @@ const navigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'CameraRollNPM',
+    initialRouteName: 'Home',
     defaultNavigationOptions: {
       title: 'Native Module',
     },
