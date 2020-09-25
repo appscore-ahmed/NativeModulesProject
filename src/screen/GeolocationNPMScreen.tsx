@@ -30,6 +30,7 @@ const hasAndroidPermissions = async () => {
     permission_fine_location,
     permission_coarse_location,
   ]);
+  console.log(status['android.permission.ACCESS_FINE_LOCATION']);
   return (
     status['android.permission.ACCESS_FINE_LOCATION'] === 'granted' &&
     status['android.permission.ACCESS_COARSE_LOCATION'] === 'granted'
@@ -39,8 +40,7 @@ const hasAndroidPermissions = async () => {
 const GeolocationNPMScreen = () => {
   const [position, setPosition] = useState<coords>();
   const getLocation = () => {
-    /* if (hasAndroidPermissions()) console.log('permission granted');
-    else */
+    if (hasAndroidPermissions())
       GeolocationService.getCurrentPosition(
         (position) => {
           setPosition(position);
