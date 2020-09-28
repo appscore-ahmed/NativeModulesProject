@@ -30,6 +30,14 @@ const NPMHomeScreen = () => {
           }}
         />
       </View>
+      <View style={styles.rowButtonViewStyle}>
+        <Button
+          title="Video NPM"
+          onPress={() => {
+            navigation.navigate('VideoNPM');
+          }}
+        />
+      </View>
     </View>
   );
 };
