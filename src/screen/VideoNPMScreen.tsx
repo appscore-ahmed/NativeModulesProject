@@ -15,6 +15,10 @@ const VideoNPMScreen = () => {
     });
   }, []);
 
+  const onLoad = () => {
+    ref.current?.seek(12);
+  };
+
   return (
     // <View>
     <Video
@@ -28,6 +32,7 @@ const VideoNPMScreen = () => {
       resizeMode="stretch"
       controls={true}
       fullscreen={!orientation}
+      onLoad={onLoad}
     />
     // </View>
   );
