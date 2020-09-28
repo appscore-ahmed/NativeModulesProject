@@ -77,7 +77,7 @@ const navigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'VideoNPM',
+    initialRouteName: 'Home',
     defaultNavigationOptions: {
       title: 'Native Module',
     },
