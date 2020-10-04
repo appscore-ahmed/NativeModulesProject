@@ -10,8 +10,8 @@ import NPMHomeScreen from './src/screen/NPMHomeScreen';
 import CameraNPMScreen from './src/screen/CameraNPMScreen';
 import GeolocationNPMScreen from './src/screen/GeolocationNPMScreen';
 import CameraRollNPMScreen from './src/screen/CameraRollNPMScreen';
-import VideNPMScreen from './src/screen/VideoNPMScreen';
 import VideoNPMScreen from './src/screen/VideoNPMScreen';
+import ScrollViewAnimationScreen from './src/screen/ScrollViewAnimationScreen';
 
 const navigator = createStackNavigator(
   {
@@ -71,6 +71,12 @@ const navigator = createStackNavigator(
     },
     VideoNPM: {
       screen: VideoNPMScreen,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    ScrollViewAnimation: {
+      screen: ScrollViewAnimationScreen,
       navigationOptions: {
         headerShown: false,
       },
