@@ -14,6 +14,7 @@
     "@react-native-community/cameraroll": "^4.0.0",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-community/slider": "^3.0.3",
+    "@react-navigation/native": "^5.7.5",
     "@types/react": "^16.9.49",
     "@types/react-native": "^0.63.15",
     "@types/react-native-orientation": "^5.0.1",
