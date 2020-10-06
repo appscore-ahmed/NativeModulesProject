@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {NavigationState} from 'react-navigation';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 
@@ -31,8 +30,12 @@ function RootStack() {
         component={HomeScreen}
         /* options={{}} */
       ></Stack.Screen>
-      <Stack.Screen name="Camera" component={CameraScreen} />
-      <Stack.Screen name="Geolocation" component={GeolocationScreen} />
+      <Stack.Screen
+        name="Camera"
+        component={CameraScreen}
+        initialParams={{title: 'initialParams'}}
+      />
+      <Stack.Screen name="Geolocation" component={GeolocationScreen} initialParams={{coords: '213123'}}/>
       <Stack.Screen name="ImagePicker" component={ImagePickerScreen} />
       <Stack.Screen name="VideoView" component={VideoViewNativeScreen} />
       <Stack.Screen name="NPM" component={NPMHomeScreen} />

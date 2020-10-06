@@ -6,6 +6,7 @@ import {
   shareToExternal,
   shareType,
 } from '../native_module/Modules';
+import {useRoute} from '../hooks/useRoute';
 
 interface coords {
   latitude: number;
@@ -13,6 +14,9 @@ interface coords {
 }
 
 const GeolocationScreen = () => {
+  const route = useRoute('Geolocation');
+  console.log(route.params?.coords);
+
   const [coords, setCoords] = useState<coords>({latitude: 0, longitude: 0});
   const [isHidden, setHidden] = useState<Boolean>(true);
 

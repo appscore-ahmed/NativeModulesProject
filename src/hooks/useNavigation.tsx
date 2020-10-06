@@ -1,13 +1,8 @@
-import { useContext } from 'react';
-import {
-  NavigationScreenProp,
-  NavigationRoute,
-  NavigationContext,
-} from 'react-navigation';
+import {useContext} from 'react';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {ScreenTypes} from '../constants/types';
+import {NavigationContext} from '@react-navigation/native';
 
-export function useNavigation<Params>() {
-  return useContext(NavigationContext) as unknown as NavigationScreenProp<
-    NavigationRoute,
-    Params
-  >;
+export function useNavigation() {
+  return useContext(NavigationContext) as StackNavigationProp<ScreenTypes>;
 }

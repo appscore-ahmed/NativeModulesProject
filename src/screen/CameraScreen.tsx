@@ -3,6 +3,7 @@ import {View, StyleSheet, Dimensions, ScaledSize} from 'react-native';
 import {callCamera} from '../native_module/Modules';
 import ImageComponent from '../components/ImageComponent';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {useRoute} from '../hooks/useRoute';
 
 interface layoutType {
   height: number;
@@ -11,10 +12,10 @@ interface layoutType {
   y: number;
 }
 
-type param = {};
-
-const CameraScreen = ({route}: StackNavigationProp<param>) => {
-  console.log(route?.params.text);
+const CameraScreen = (/* {route}: StackNavigationProp<param> */) => {
+  const route = useRoute('Camera');
+  console.log('cameraaaaaaaaa');
+  console.log(route.params?.title);
   return (
     <View style={styles.container}>
       <ImageComponent

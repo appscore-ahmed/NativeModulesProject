@@ -1,4 +1,4 @@
-import {StackNavigationProp} from '@react-navigation/stack';
+import {StackNavigationProp, StackScreenProps} from '@react-navigation/stack';
 import React, {useEffect, useRef, useLayoutEffect} from 'react';
 import {Button, View, StyleSheet, Text} from 'react-native';
 import {useNavigation} from '../hooks/useNavigation';
@@ -9,8 +9,8 @@ type ParamList = {
   // Camera: typeof CameraScreen;
 };
 
-const HomeScreen = ({navigation}: StackNavigationProp<ParamList>) => {
-  // const navigation = useNavigation();
+const HomeScreen = (/* {navigation}: StackScreenProps<ParamList> */) => {
+  const navigation = useNavigation();
 
   useEffect(() => {
     try {
@@ -38,7 +38,7 @@ const HomeScreen = ({navigation}: StackNavigationProp<ParamList>) => {
           ref={camera}
           title="Camera"
           onPress={() => {
-            navigation.navigate('Camera', {text: 'hi'});
+            navigation.navigate('Camera', {title: 's'});
           }}
         />
       </View>
@@ -46,7 +46,7 @@ const HomeScreen = ({navigation}: StackNavigationProp<ParamList>) => {
         <Button
           title="Geolocation"
           onPress={() => {
-            navigation.navigate('Geolocation');
+            navigation.navigate('Geolocation', {coords: 'latLon'});
           }}
         />
       </View>
