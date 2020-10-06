@@ -12,10 +12,10 @@ interface layoutType {
   y: number;
 }
 
-const CameraScreen = (/* {route}: StackNavigationProp<param> */) => {
+const CameraScreen = () => {
   const route = useRoute('Camera');
   console.log('cameraaaaaaaaa');
-  console.log(route.params?.title);
+  console.log(route.params?.title); 
   return (
     <View style={styles.container}>
       <ImageComponent

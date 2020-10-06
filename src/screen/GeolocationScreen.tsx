@@ -6,16 +6,24 @@ import {
   shareToExternal,
   shareType,
 } from '../native_module/Modules';
-import {useRoute} from '../hooks/useRoute';
+// import {useRoute} from '../hooks/useRoute';
+import {useRoute} from '@react-navigation/native';
+import {ScreenTypes} from '../constants/types';
+import {NavigationRouteContext, RouteProp} from '@react-navigation/native';
 
 interface coords {
   latitude: number;
   longitude: number;
 }
 
-const GeolocationScreen = () => {
-  const route = useRoute('Geolocation');
-  console.log(route.params?.coords);
+type Geo = RouteProp<ScreenTypes, 'Geolocation'>;
+
+type Props = {
+  route: Geo;
+};
+const GeolocationScreen = (route: Props) => {
+  // const route = useRoute<ScreenTypes>();
+  console.log(route.route.params?.coords);
 
   const [coords, setCoords] = useState<coords>({latitude: 0, longitude: 0});
   const [isHidden, setHidden] = useState<Boolean>(true);
