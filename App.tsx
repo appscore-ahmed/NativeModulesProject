@@ -1,6 +1,12 @@
 import * as React from 'react';
-import {createAppContainer} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
+import {NavigationState} from 'react-navigation';
+import {createStackNavigator} from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
+
+//type
+import {ScreenTypes} from './src/constants/types';
+
+//Screens
 import HomeScreen from './src/screen/HomeScreen';
 import CameraScreen from './src/screen/CameraScreen';
 import GeolocationScreen from './src/screen/GeolocationScreen';
@@ -13,84 +19,38 @@ import CameraRollNPMScreen from './src/screen/CameraRollNPMScreen';
 import VideoNPMScreen from './src/screen/VideoNPMScreen';
 import ScrollViewAnimationScreen from './src/screen/ScrollViewAnimationScreen';
 
-const navigator = createStackNavigator(
-  {
-    Home: {
-      screen: HomeScreen,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
-    Camera: {
-      screen: CameraScreen,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
-    Geolocation: {
-      screen: GeolocationScreen,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
-    ImagePicker: {
-      screen: ImagePickerScreen,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
-    VideoView: {
-      screen: VideoViewNativeScreen,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
-    NPM: {
-      screen: NPMHomeScreen,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
-    CameraNPM: {
-      screen: CameraNPMScreen,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
-    GeolocationNPM: {
-      screen: GeolocationNPMScreen,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
-    CameraRollNPM: {
-      screen: CameraRollNPMScreen,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
-    VideoNPM: {
-      screen: VideoNPMScreen,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
-    ScrollViewAnimation: {
-      screen: ScrollViewAnimationScreen,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
-  },
-  {
-    initialRouteName: 'Home',
-    defaultNavigationOptions: {
-      title: 'Native Module',
-    },
-    headerMode: 'none',
-  },
+const Stack = createStackNavigator<ScreenTypes>();
+
+function RootStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="Home"
+      screenOptions={{headerShown: false}}>
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        /* options={{}} */
+      ></Stack.Screen>
+      <Stack.Screen name="Camera" component={CameraScreen} />
+      <Stack.Screen name="Geolocation" component={GeolocationScreen} />
+      <Stack.Screen name="ImagePicker" component={ImagePickerScreen} />
+      <Stack.Screen name="VideoView" component={VideoViewNativeScreen} />
+      <Stack.Screen name="NPM" component={NPMHomeScreen} />
+      <Stack.Screen name="CameraNPM" component={CameraNPMScreen} />
+      <Stack.Screen name="GeolocationNPM" component={GeolocationNPMScreen} />
+      <Stack.Screen name="CameraRollNPM" component={CameraRollNPMScreen} />
+      <Stack.Screen name="VideoNPM" component={VideoNPMScreen} />
+      <Stack.Screen
+        name="ScrollViewAnimation"
+        component={ScrollViewAnimationScreen}
+      />
+    </Stack.Navigator>
+  );
+}
+
+export default () => (
+  <NavigationContainer
+    onStateChange={(state) => console.log(state?.routeNames)}>
+    <RootStack />
+  </NavigationContainer>
 );
-
-const App = createAppContainer(navigator);
-
-export default () => <App />;

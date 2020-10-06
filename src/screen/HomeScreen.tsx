@@ -1,10 +1,16 @@
+import {StackNavigationProp} from '@react-navigation/stack';
 import React, {useEffect, useRef, useLayoutEffect} from 'react';
 import {Button, View, StyleSheet, Text} from 'react-native';
 import {useNavigation} from '../hooks/useNavigation';
 import lifecycle from '../native_module/Modules';
+import CameraScreen from '../screen/CameraScreen';
 
-const HomeScreen = () => {
-  const navigation = useNavigation();
+type ParamList = {
+  // Camera: typeof CameraScreen;
+};
+
+const HomeScreen = ({navigation}: StackNavigationProp<ParamList>) => {
+  // const navigation = useNavigation();
 
   useEffect(() => {
     try {
@@ -32,7 +38,7 @@ const HomeScreen = () => {
           ref={camera}
           title="Camera"
           onPress={() => {
-            navigation.navigate('Camera');
+            navigation.navigate('Camera', {text: 'hi'});
           }}
         />
       </View>

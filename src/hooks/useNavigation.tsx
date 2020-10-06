@@ -6,7 +6,7 @@ import {
 } from 'react-navigation';
 
 export function useNavigation<Params>() {
-  return useContext(NavigationContext) as NavigationScreenProp<
+  return useContext(NavigationContext) as unknown as NavigationScreenProp<
     NavigationRoute,
     Params
   >;
