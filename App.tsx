@@ -2,6 +2,7 @@ import * as React from 'react';
 import {View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
 //type
 import {BottomTabScreenType} from './src/constants/types';
@@ -13,7 +14,8 @@ import CameraScreen from './src/screen/CameraScreen';
 import GeolocationScreen from './src/screen/GeolocationScreen';
 import ImagePickerScreen from './src/screen/ImagePickerScreen';
 import VideoViewNativeScreen from './src/screen/VideoViewNativeScreen';
-import HomeScreen from './src/screen/HomeScreen';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {DrawerNavigation} from './src/navigation/DrawerNavigation';
 
 const BottomStack = createBottomTabNavigator<BottomTabScreenType>();
 
@@ -38,13 +40,10 @@ const Stack = createStackNavigator();
 
 function StackNav() {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator
+      screenOptions={{headerShown: false, gestureEnabled: false}}>
       <Stack.Screen name="Home" component={RootStack} />
-      <Stack.Screen
-        name="Camera"
-        component={CameraScreen}
-        initialParams={{title: 'initialParams'}}
-      />
+      <Stack.Screen name="Camera" component={DrawerNavigation} />
       <Stack.Screen
         name="Geolocation"
         component={GeolocationScreen}
@@ -57,9 +56,11 @@ function StackNav() {
 }
 
 export default () => (
-  <NavigationContainer
-  /* onStateChange={(state) => console.log(state?.routeNames)} */
-  >
-    <StackNav />
-  </NavigationContainer>
+  <SafeAreaProvider>
+    <NavigationContainer
+    /* onStateChange={(state) => console.log(state?.routeNames)} */
+    >
+      <StackNav />
+    </NavigationContainer>
+  </SafeAreaProvider>
 );

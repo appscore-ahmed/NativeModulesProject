@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, StyleSheet, Dimensions, ScaledSize} from 'react-native';
+import {StyleSheet, SafeAreaView} from 'react-native';
 import {callCamera} from '../native_module/Modules';
 import ImageComponent from '../components/ImageComponent';
-import {StackNavigationProp} from '@react-navigation/stack';
 import {useRoute} from '../hooks/useRoute';
+import {FocusAwareStatusBar} from '../components/FocusAwareStatusBar';
 
 interface layoutType {
   height: number;
@@ -15,15 +15,16 @@ interface layoutType {
 const CameraScreen = () => {
   const route = useRoute('Camera');
   console.log('cameraaaaaaaaa');
-  console.log(route.params?.title); 
+  console.log(route.params?.title);
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={[styles.container, {backgroundColor: '#ecf0f1'}]}>
+      <FocusAwareStatusBar barStyle="dark-content" backgroundColor="#ecf0f1" />
       <ImageComponent
         /* dimen={dimen} */
         buttonTitle="Take a Picture"
         promisedCallback={callCamera}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -1,13 +1,10 @@
 import {StackNavigationProp, StackScreenProps} from '@react-navigation/stack';
 import React, {useEffect, useRef, useLayoutEffect} from 'react';
-import {Button, View, StyleSheet, Text} from 'react-native';
+import {Button, View, StyleSheet, SafeAreaView} from 'react-native';
+import {FocusAwareStatusBar} from '../components/FocusAwareStatusBar';
 import {useNavigation} from '../hooks/useNavigation';
 import lifecycle from '../native_module/Modules';
 import CameraScreen from '../screen/CameraScreen';
-
-type ParamList = {
-  // Camera: typeof CameraScreen;
-};
 
 const HomeScreen = (/* {navigation}: StackScreenProps<ParamList> */) => {
   const navigation = useNavigation();
@@ -32,7 +29,9 @@ const HomeScreen = (/* {navigation}: StackScreenProps<ParamList> */) => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    // <View style={styles.container}>
+    <SafeAreaView style={[styles.container, {backgroundColor: '#ecf0f1'}]}>
+      <FocusAwareStatusBar barStyle="dark-content" backgroundColor="#ecf0f1" />
       <View style={styles.buttonViewStyle}>
         <Button
           ref={camera}
@@ -75,7 +74,8 @@ const HomeScreen = (/* {navigation}: StackScreenProps<ParamList> */) => {
           }}
         />
       </View> */}
-    </View>
+      {/* </View> */}
+    </SafeAreaView>
   );
 };
 
