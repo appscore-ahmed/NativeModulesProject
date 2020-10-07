@@ -17,7 +17,7 @@ export function NativeModuleNavigation() {
       initialRouteName="Home"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Camera"
         component={CameraScreen}
         initialParams={{title: 'initialParams'}}
@@ -28,7 +28,7 @@ export function NativeModuleNavigation() {
         initialParams={{coords: '213123'}}
       />
       <Stack.Screen name="ImagePicker" component={ImagePickerScreen} />
-      <Stack.Screen name="VideoView" component={VideoViewNativeScreen} />
+      <Stack.Screen name="VideoView" component={VideoViewNativeScreen} /> */}
     </Stack.Navigator>
   );
 }
