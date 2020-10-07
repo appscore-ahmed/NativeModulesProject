@@ -66,7 +66,7 @@ const HomeScreen = (/* {navigation}: StackScreenProps<ParamList> */) => {
           }}
         />
       </View>
-      <View style={styles.buttonViewStyle}>
+      {/* <View style={styles.buttonViewStyle}>
         <Text> NPM Packages </Text>
         <Button
           title="NPM"
@@ -74,7 +74,7 @@ const HomeScreen = (/* {navigation}: StackScreenProps<ParamList> */) => {
             navigation.navigate('NPM');
           }}
         />
-      </View>
+      </View> */}
     </View>
   );
 };

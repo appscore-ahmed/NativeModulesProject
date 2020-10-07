@@ -1,9 +1,17 @@
 export type ScreenTypes = {
-  Home: undefined;
   Camera: {title: string} | undefined;
   Geolocation: {coords: string} | undefined;
   ImagePicker: undefined;
   VideoView: undefined;
+  Home: undefined;
+};
+
+export type BottomTabScreenType = {
+  NPM: undefined;
+  Home: undefined;
+};
+
+export type NPMScreenTypes = {
   NPM: undefined;
   CameraNPM: undefined;
   GeolocationNPM: undefined;
