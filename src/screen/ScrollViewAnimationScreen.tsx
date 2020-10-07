@@ -90,15 +90,9 @@ const ScrollViewAnimationScreen = () => {
               style={[styles.card, {backgroundColor: randomHsl()}]}>
               <Text>This is the the test</Text>
             </View>
-            // <Image
-            //   style={{width: 200, height: '100%', zIndex: 1}}
-            //   source={{uri: 'file:///storage/emulated/0/Pictures/Title.jpg'}}
-            // />
           );
         })}
       </Animated.ScrollView>
-      {/* </View> */}
-      {/* </Animated.View> */}
     </View>
   );
 };
