@@ -5,13 +5,6 @@ import ImageComponent from '../components/ImageComponent';
 import {useRoute} from '../hooks/useRoute';
 import {FocusAwareStatusBar} from '../components/FocusAwareStatusBar';
 
-interface layoutType {
-  height: number;
-  width: number;
-  x: number;
-  y: number;
-}
-
 const CameraScreen = () => {
   const route = useRoute('Camera');
   console.log('cameraaaaaaaaa');
