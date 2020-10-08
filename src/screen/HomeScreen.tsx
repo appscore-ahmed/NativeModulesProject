@@ -1,13 +1,17 @@
 import {StackNavigationProp, StackScreenProps} from '@react-navigation/stack';
 import React, {useEffect, useRef, useLayoutEffect} from 'react';
-import {Button, View, StyleSheet, SafeAreaView} from 'react-native';
+import {Button, View, StyleSheet, SafeAreaView, Linking} from 'react-native';
 import {FocusAwareStatusBar} from '../components/FocusAwareStatusBar';
 import {useNavigation} from '../hooks/useNavigation';
+import {useRoute} from '../hooks/useRoute';
 import lifecycle from '../native_module/Modules';
 import CameraScreen from '../screen/CameraScreen';
 
 const HomeScreen = (/* {navigation}: StackScreenProps<ParamList> */) => {
   const navigation = useNavigation();
+
+  const route = useRoute('Home');
+  console.log(route.params);
 
   useEffect(() => {
     try {
@@ -20,6 +24,15 @@ const HomeScreen = (/* {navigation}: StackScreenProps<ParamList> */) => {
     } catch (e) {
       console.log(e);
     }
+
+    /* var NativeLinking = require('../../node_modules/react-native/Libraries/Linking/NativeLinking')
+      .default; */
+    Linking.getInitialURL()
+      .then((url) => {
+        console.log('Initial url is: ' + url);
+        // navigation.navigate('ImagePicker');
+      })
+      .catch((err: string) => console.error('An error occurred', err));
   }, []);
 
   const camera = useRef<Button>();

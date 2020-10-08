@@ -2,11 +2,37 @@ import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {StackNav} from './src/navigation/StackNav';
+import {Text} from 'react-native';
+
+const linking = {
+  prefixes: ['https://homescreen.com', 'homescreen://'],
+  config: {
+    screens: {
+      Home: {
+        screens: {
+          NPM: 'NPM',
+          // {
+          //   screens: {CameraNPM: {path: 'CameraNPM'}},
+          // },
+        },
+      },
+      ImagePicker: {
+        path: 'ImagePicker/:id',
+        params: {
+          id: 0,
+        },
+      },
+      Geolocation: 'Geolocation',
+    },
+  },
+};
 
 export default () => (
   <SafeAreaProvider>
     <NavigationContainer
-    /* onStateChange={(state) => console.log(state?.routeNames)} */
+      linking={linking}
+      fallback={<Text>Loading..</Text>}
+      /* onStateChange={(state) => console.log(state?.routeNames)} */
     >
       <StackNav />
     </NavigationContainer>

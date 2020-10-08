@@ -43,7 +43,7 @@ function NativeModuleNavigation() {
     <Stack.Navigator
       initialRouteName="Home"
       screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Home" component={HomeScreen}/>
     </Stack.Navigator>
   );
 }

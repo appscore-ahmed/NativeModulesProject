@@ -1,7 +1,7 @@
 export type ScreenTypes = {
   Camera: {title: string} | undefined;
   Geolocation: {coords: string} | undefined;
-  ImagePicker: undefined;
+  ImagePicker: {image: string} | undefined;
   VideoView: undefined;
   Home: undefined;
 };
