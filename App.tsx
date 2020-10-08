@@ -6,22 +6,24 @@ import {Text} from 'react-native';
 
 const linking = {
   prefixes: ['https://homescreen.com', 'homescreen://'],
-  config: {
-    Home: {
-      screens: {
-        /* 'NPM', */
-        NPM: {
-          CameraNPM: {path: 'CameraNPM'},
+  screens: {
+    config: {
+      Home: {
+        screens: {
+          /* 'NPM', */
+          NPM: {
+            CameraNPM: {path: 'CameraNPM'},
+          },
         },
       },
-    },
-    ImagePicker: {
-      path: 'ImagePicker/:id',
-      params: {
-        id: 0,
+      ImagePicker: {
+        path: 'ImagePicker/:id',
+        params: {
+          id: 0,
+        },
       },
+      Geolocation: 'Geolocation',
     },
-    Geolocation: 'Geolocation',
   },
 };
 
