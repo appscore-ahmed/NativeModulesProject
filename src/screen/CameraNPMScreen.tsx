@@ -1,4 +1,4 @@
-import React, {useRef, useState, RefObject} from 'react';
+import React, {useRef, useState, RefObject, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -13,6 +13,7 @@ import {
   RNCamera,
 } from 'react-native-camera';
 import {useNavigation} from '../hooks/useNavigation';
+import {useRoute} from '@react-navigation/native';
 
 interface props {
   cameraRef: RefObject<RNCamera>;
@@ -22,10 +23,18 @@ interface props {
 
 const CameraNPMScreen = () => {
   const navigation = useNavigation();
+
+  const route = useRoute();
+
   const cameraRef = useRef<RNCamera>(null);
   const [cameraType, setCameraType] = useState<Boolean>(false);
   const [imageSource, setImageSource] = useState<string | undefined>('');
   const [modalVisibility, setModalVisibility] = useState<Boolean>(true);
+
+  useEffect(() => {
+    console.log(route);
+    // setCameraType(route.params?.cameraview);
+  }, []);
 
   const takePicture = async (/* cameraRef: RefObject<RNCamera> */) => {
     if (cameraRef) {

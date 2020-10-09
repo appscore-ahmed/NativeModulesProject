@@ -5,14 +5,20 @@ import {StackNav} from './src/navigation/StackNav';
 import {Text} from 'react-native';
 
 const linking = {
-  prefixes: ['https://homescreen.com', 'homescreen://'],
-  screens: {
+  prefixes: ['url://homescreen://', 'homescreen://'],
+  screens: { //to satisfy typescript
     config: {
+      // screens: {
       Home: {
         screens: {
           /* 'NPM', */
           NPM: {
-            CameraNPM: {path: 'CameraNPM'},
+            screen: {
+              CameraNPM: {
+                path: 'CameraNPM/:cameraview',
+                params: {cameraview: 3},
+              },
+            },
           },
         },
       },
