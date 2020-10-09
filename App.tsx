@@ -4,33 +4,33 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {StackNav} from './src/navigation/StackNav';
 import {Text} from 'react-native';
 
-const linking = {
-  prefixes: ['url://homescreen://', 'homescreen://'],
-  screens: { //to satisfy typescript
-    config: {
-      // screens: {
-      Home: {
-        screens: {
-          /* 'NPM', */
-          NPM: {
-            screen: {
-              CameraNPM: {
-                path: 'CameraNPM/:cameraview',
-                params: {cameraview: 3},
-              },
+const config = {
+  screens: {
+    Home: {
+      screens: {
+        NPM: {
+          screen: {
+            CameraNPM: {
+              path: 'CameraNPM/:cameraview',
+              params: {cameraview: 3},
             },
           },
         },
       },
-      ImagePicker: {
-        path: 'ImagePicker/:id',
-        params: {
-          id: 0,
-        },
-      },
-      Geolocation: 'Geolocation',
     },
+    ImagePicker: {
+      path: 'ImagePicker/:id',
+      params: {
+        id: 0,
+      },
+    },
+    Geolocation: 'Geolocation',
   },
+};
+
+const linking = {
+  prefixes: ['url://homescreen://', 'homescreen://'],
+  config: {config},
 };
 
 export default () => (
