@@ -7,6 +7,7 @@ import {Text} from 'react-native';
 const config = {
   screens: {
     Home: {
+      initialRouteName: 'Home',
       screens: {
         NPM: {
           screen: {
@@ -23,8 +24,16 @@ const config = {
       params: {
         id: 0,
       },
+      exact: true,
+      parse: {
+        id: (id: string) => `user-${id}`,
+      },
+      stringify: {
+        id: (id: string) => id.replace(/^user-/, ''),
+      },
     },
     Geolocation: 'Geolocation',
+    NotFound: '*',
   },
 };
 

@@ -6,7 +6,7 @@ import {useRoute} from '../hooks/useRoute';
 
 const ImagePickerScreen = () => {
   const route = useRoute('ImagePicker');
-  console.log(route.params?.id);
+  console.log(route.params);
 
   return (
     <ImageComponent promisedCallback={pickImage} buttonTitle="Pick an Image" />

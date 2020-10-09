@@ -11,7 +11,7 @@ const HomeScreen = (/* {navigation}: StackScreenProps<ParamList> */) => {
   const navigation = useNavigation();
 
   const route = useRoute('Home');
-  console.log(route.params);
+  console.log(route);
 
   useEffect(() => {
     try {
