@@ -5,12 +5,12 @@ import {StackNav} from './src/navigation/StackNav';
 import {Text} from 'react-native';
 
 const config = {
-  screens: {
+  // screens: {
     Home: {
       initialRouteName: 'Home',
       screens: {
         NPM: {
-          screen: {
+          screens: {
             CameraNPM: {
               path: 'CameraNPM/:cameraview',
               params: {cameraview: 3},
@@ -33,13 +33,13 @@ const config = {
       },
     },
     Geolocation: 'Geolocation',
-    NotFound: '*',
-  },
+    // NotFound: '*', <<NotFound should be the screen
+  // },
 };
 
 const linking = {
   prefixes: ['url://homescreen://', 'homescreen://'],
-  config: {config},
+  config,
 };
 
 export default () => (
