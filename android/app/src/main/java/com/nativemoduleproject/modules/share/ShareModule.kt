@@ -17,6 +17,8 @@ class ShareModule(private val reactContext: ReactApplicationContext) : ReactCont
         return true
     }
 
+    private val flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
     @ReactMethod
     fun share(data: String, shareType: String): Unit {
 
@@ -42,7 +44,7 @@ class ShareModule(private val reactContext: ReactApplicationContext) : ReactCont
             }
         }
         val shareIntent = Intent.createChooser(intent, null)
-        shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        shareIntent.flags = flags
         reactApplicationContext.startActivity(shareIntent)
         sendEvent(reactContext, "EventReminder", params)
     }

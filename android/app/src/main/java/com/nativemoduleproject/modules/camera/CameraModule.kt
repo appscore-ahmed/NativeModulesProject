@@ -64,7 +64,7 @@ class CameraModule(reactContext: ReactApplicationContext) :
     }
 
     @ReactMethod
-    fun callCamera(promise: Promise) {
+    fun camera(promise: Promise): Unit {
         mCameraPromise = promise
         val intent = Intent("android.media.action.IMAGE_CAPTURE");
         reactApplicationContext.startActivityForResult(intent, REQUEST_CODE, null);

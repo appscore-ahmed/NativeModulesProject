@@ -19,7 +19,7 @@ export const shareToExternal = (
 };
 
 export const callCamera = (): Promise<string> => {
-  return NativeModules.CameraModule.callCamera()
+  return NativeModules.CameraModule.camera()
     .then((result: string) => {
       return Promise.resolve(result);
     })
