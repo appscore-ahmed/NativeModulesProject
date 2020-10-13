@@ -1,10 +1,11 @@
 package com.nativemoduleproject.modules
 
+import android.util.Log
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.uimanager.ViewManager
-import com.nativemoduleproject.modules.camera.CameraModule
+import com.nativemoduleproject.modules.camera.CameraNativeModule
 import com.nativemoduleproject.modules.deviceinfo.DeviceInfoModule
 import com.nativemoduleproject.modules.geolocation.GeolocationModule
 import com.nativemoduleproject.modules.imagepicker.ImagePickerModule
@@ -30,12 +31,15 @@ class CustomModulesPackage : ReactPackage {
             reactContext: ReactApplicationContext): List<NativeModule> {
         val modules: MutableList<NativeModule> = ArrayList()
         modules.add(ToastModule(reactContext))
-        modules.add(CameraModule(reactContext))
+        modules.add(CameraNativeModule(reactContext))
         modules.add(DeviceInfoModule(reactContext))
         modules.add(GeolocationModule(reactContext))
         modules.add(ShareModule(reactContext))
         modules.add(ImagePickerModule(reactContext))
         modules.add(LifecycleEventsModule(reactContext))
+        for (m in modules) {
+            Log.e("ASDD", m.name)
+        }
         return modules
     }
 }

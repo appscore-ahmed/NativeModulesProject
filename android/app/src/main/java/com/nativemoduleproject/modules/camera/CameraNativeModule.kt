@@ -11,10 +11,10 @@ import android.util.Log
 import com.facebook.react.bridge.*
 import java.io.ByteArrayOutputStream
 
-class CameraModule(reactContext: ReactApplicationContext) :
+class CameraNativeModule(reactContext: ReactApplicationContext) :
         ReactContextBaseJavaModule(reactContext) {
     override fun getName(): String {
-        return "CameraModule"
+        return "CameraNativeModule"
     }
 
     private lateinit var mCameraPromise: Promise
@@ -67,6 +67,7 @@ class CameraModule(reactContext: ReactApplicationContext) :
     fun camera(promise: Promise): Unit {
         mCameraPromise = promise
         val intent = Intent("android.media.action.IMAGE_CAPTURE");
+        Log.e("ASD", "camera func is called")
         reactApplicationContext.startActivityForResult(intent, REQUEST_CODE, null);
     }
 
