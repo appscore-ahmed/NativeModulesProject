@@ -6,6 +6,7 @@ import {
   Animated,
   ScrollView,
   Dimensions,
+  StatusBar,
 } from 'react-native';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
@@ -36,6 +37,7 @@ const CollapsableToolbar = () => {
 
   return (
     <View style={styles.container}>
+      <StatusBar translucent={true} backgroundColor="rgba(0,0,0,0.0)" />
       <Animated.View
         style={[
           styles.header,
@@ -43,21 +45,45 @@ const CollapsableToolbar = () => {
             height: headerHeight,
           },
         ]}>
+        <Animated.Image
+          style={{
+            position: 'absolute',
+            // bottom: 16,
+            // left: 16,
+            width: '100%',
+            height: '100%',
+            opacity: headerTitleOpacity,
+          }}
+          source={{uri: 'https://picsum.photos/400/300/?blur=3'}}
+          // resizeMode='stretch'
+        />
         <Animated.Text
           style={{
             textAlign: 'center',
             fontSize: 18,
-            color: 'black',
+            color: 'white',
             marginTop: 28,
             opacity: headerTitleOpacity,
           }}>
-          Header Title
+          Header
         </Animated.Text>
+
+        <Animated.Image
+          style={{
+            position: 'absolute',
+            // bottom: 16,
+            // left: 16,
+            width: '100%',
+            height: '100%',
+            opacity: heroTitleOpacity,
+          }}
+          source={{uri: 'https://picsum.photos/400/300/?blur=3'}}
+        />
         <Animated.Text
           style={{
             textAlign: 'center',
             fontSize: 32,
-            color: 'black',
+            color: 'white',
             position: 'absolute',
             bottom: 16,
             left: 16,

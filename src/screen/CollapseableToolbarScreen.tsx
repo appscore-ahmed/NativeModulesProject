@@ -6,4 +6,4 @@ const CollapsableToolbarScreen = () => {
   return <CollapsableToolbar />;
 };
 
-export default CollapsableToolbar;
+export default CollapsableToolbarScreen;

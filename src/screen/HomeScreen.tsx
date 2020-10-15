@@ -1,4 +1,3 @@
-import {StackNavigationProp, StackScreenProps} from '@react-navigation/stack';
 import React, {useEffect, useRef, useLayoutEffect} from 'react';
 import {
   Button,
