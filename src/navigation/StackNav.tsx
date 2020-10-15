@@ -6,6 +6,7 @@ import {DrawerNavigation} from './DrawerNavigation';
 import ImagePickerScreen from '../screen/ImagePickerScreen';
 import VideoViewNativeScreen from '../screen/VideoViewNativeScreen';
 import GeolocationScreen from '../screen/GeolocationScreen';
+import CollapsableToolbarScreen from '../screen/CollapseableToolbarScreen';
 
 const Stack = createStackNavigator();
 
@@ -22,6 +23,10 @@ export function StackNav() {
       />
       <Stack.Screen name="ImagePicker" component={ImagePickerScreen} />
       <Stack.Screen name="VideoView" component={VideoViewNativeScreen} />
+      <Stack.Screen
+        name="CollapsableToolbar"
+        component={CollapsableToolbarScreen}
+      />
     </Stack.Navigator>
   );
 }

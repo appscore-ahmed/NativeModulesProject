@@ -4,6 +4,7 @@ export type ScreenTypes = {
   ImagePicker: {image: string} | undefined;
   VideoView: undefined;
   Home: undefined;
+  CollapsableToolbar: undefined;
 };
 
 export type BottomTabScreenType = {

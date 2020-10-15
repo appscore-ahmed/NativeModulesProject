@@ -1,11 +1,17 @@
 import {StackNavigationProp, StackScreenProps} from '@react-navigation/stack';
 import React, {useEffect, useRef, useLayoutEffect} from 'react';
-import {Button, View, StyleSheet, SafeAreaView, Linking} from 'react-native';
+import {
+  Button,
+  View,
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  Linking,
+} from 'react-native';
 import {FocusAwareStatusBar} from '../components/FocusAwareStatusBar';
 import {useNavigation} from '../hooks/useNavigation';
 import {useRoute} from '../hooks/useRoute';
 import lifecycle from '../native_module/Modules';
-import CameraScreen from '../screen/CameraScreen';
 
 const HomeScreen = (/* {navigation}: StackScreenProps<ParamList> */) => {
   const navigation = useNavigation();
@@ -78,15 +84,15 @@ const HomeScreen = (/* {navigation}: StackScreenProps<ParamList> */) => {
           }}
         />
       </View>
-      {/* <View style={styles.buttonViewStyle}>
-        <Text> NPM Packages </Text>
+      <View style={styles.buttonViewStyle}>
+        <Text> CollapsableToolbar </Text>
         <Button
-          title="NPM"
+          title="CollapsableToolbar"
           onPress={() => {
-            navigation.navigate('NPM');
+            navigation.navigate('CollapsableToolbar');
           }}
         />
-      </View> */}
+      </View>
       {/* </View> */}
     </SafeAreaView>
   );
