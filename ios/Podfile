@@ -19,6 +19,9 @@ target 'NativeModuleProject' do
 
   pod 'react-native-video', :path => '../node_modules/react-native-video'
 
+
+  pod 'react-native-nfc-manager', :path => '../node_modules/react-native-nfc-manager'
+
   target 'NativeModuleProjectTests' do
     inherit! :complete
     # Pods for testing

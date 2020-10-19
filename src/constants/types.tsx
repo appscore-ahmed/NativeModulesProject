@@ -5,6 +5,9 @@ export type ScreenTypes = {
   VideoView: undefined;
   Home: undefined;
   CollapsableToolbar: undefined;
+  NFC: undefined;
+  NFCListener: undefined;
+  NFCMifare: undefined;
 };
 
 export type BottomTabScreenType = {

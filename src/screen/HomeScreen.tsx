@@ -92,6 +92,15 @@ const HomeScreen = (/* {navigation}: StackScreenProps<ParamList> */) => {
           }}
         />
       </View>
+      <View style={styles.buttonViewStyle}>
+        <Text> NFC </Text>
+        <Button
+          title="NFC Test Screen"
+          onPress={() => {
+            navigation.navigate('NFC');
+          }}
+        />
+      </View>
       {/* </View> */}
     </SafeAreaView>
   );
