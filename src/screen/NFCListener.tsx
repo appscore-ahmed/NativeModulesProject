@@ -8,15 +8,16 @@ const NFCListener = () => {
     NfcManager.start();
     NfcManager.setEventListener(NfcEvents.DiscoverTag, (tag: TagEvent) => {
       Alert.alert(`tag ${JSON.stringify(tag)}`);
-      NfcManager.unregisterTagEvent()
-        .then(() => Alert.alert('unregistered'))
-        .catch(() => 0);
+      console.log('tag: ' + JSON.stringify(tag));
+      // NfcManager.unregisterTagEvent()
+      //   // .then(() => Alert.alert('unregistered'))
+      //   .catch(() => 0);
     });
 
     return () => {
       NfcManager.setEventListener(NfcEvents.DiscoverTag, null);
       NfcManager.unregisterTagEvent()
-        .then(() => Alert.alert('unregistered'))
+        .then(() => console.log('nfc listener stopped'))
         .catch(() => 0);
     };
   }, []);
