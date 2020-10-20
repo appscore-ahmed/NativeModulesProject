@@ -8,6 +8,7 @@ export type ScreenTypes = {
   NFC: undefined;
   NFCListener: undefined;
   NFCMifare: undefined;
+  NFCNDEF: undefined;
 };
 
 export type BottomTabScreenType = {

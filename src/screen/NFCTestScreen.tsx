@@ -16,6 +16,11 @@ const NFCTestScreen = () => {
           title="Mifare"
           onPress={() => navigation.navigate('NFCMifare')}></Button>
       </View>
+      <View style={styles.button}>
+        <Button
+          title="NFC Data Exchange Format (NDEF)"
+          onPress={() => navigation.navigate('NFCNDEF')}></Button>
+      </View>
     </View>
   );
 };

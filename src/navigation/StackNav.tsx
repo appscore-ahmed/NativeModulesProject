@@ -10,6 +10,7 @@ import CollapsableToolbarScreen from '../screen/CollapseableToolbarScreen';
 import NFCTestScreen from '../screen/NFCTestScreen';
 import NFCListener from '../screen/NFCListener';
 import NFCMifare from '../screen/NFCMifare';
+import NFCNDEF from '../screen/NFCNDEF';
 
 const Stack = createStackNavigator();
 
@@ -33,6 +34,7 @@ export function StackNav() {
       <Stack.Screen name="NFC" component={NFCTestScreen} />
       <Stack.Screen name="NFCListener" component={NFCListener} />
       <Stack.Screen name="NFCMifare" component={NFCMifare} />
+      <Stack.Screen name="NFCNDEF" component={NFCNDEF} />
     </Stack.Navigator>
   );
 }

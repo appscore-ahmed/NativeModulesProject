@@ -7,7 +7,10 @@ const NFCListener = () => {
   React.useEffect(() => {
     NfcManager.start();
     NfcManager.setEventListener(NfcEvents.DiscoverTag, (tag: TagEvent) => {
-      Alert.alert(`tag ${JSON.stringify(tag)}`);
+      NfcManager.getNdefMessage()
+        .then((event: TagEvent | null) => console.log('event: ' + event))
+        .catch((e) => console.log('error:' + e));
+      // Alert.alert(`tag ${JSON.stringify(tag)}`);
       console.log('tag: ' + JSON.stringify(tag));
       // NfcManager.unregisterTagEvent()
       //   // .then(() => Alert.alert('unregistered'))

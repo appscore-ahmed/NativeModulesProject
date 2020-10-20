@@ -21,10 +21,10 @@ const NFCMifare = () => {
       // console.warn(resp);
       Alert.alert('requestTechnology: ' + requestTech);
 
-      /* // the NFC uid can be found in tag.id
+      // the NFC uid can be found in tag.id
       let tag = await NfcManager.getTag();
-      // console.warn(tag);
-      Alert.alert('tag: ' + tag); */
+      console.log('tag: ' + JSON.stringify(tag));
+      // Alert.alert('tag: ' + tag);
 
       const response =
         Platform.OS === 'ios'
