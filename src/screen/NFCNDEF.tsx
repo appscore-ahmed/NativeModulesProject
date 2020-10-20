@@ -27,11 +27,11 @@ const NFCNDEF = () => {
       console.log('resp: ' + resp);
       let ndef = await NfcManager.getNdefMessage();
       console.log('ndef message: ' + ndef);
-    //   let bytes = buildUrlPayload('https://www.revteltech.com');
-    //   await NfcManager.writeNdefMessage(bytes);
-    //   console.log('successfully write ndef');
-    //   Alert.alert('successfully write ndef');
-    //   await NfcManager.setAlertMessageIOS('I got your tag!');
+      let bytes = buildUrlPayload('https://www.revteltech.com');
+      await NfcManager.writeNdefMessage(bytes);
+      console.log('successfully write ndef');
+      Alert.alert('successfully write ndef');
+      await NfcManager.setAlertMessageIOS('I got your tag!');
       _cancel();
     } catch (ex) {
       console.log('ex', ex);
