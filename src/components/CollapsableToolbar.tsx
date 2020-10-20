@@ -21,11 +21,6 @@ const CollapsableToolbar = () => {
     outputRange: [HEADER_EXPANDED_HEIGHT, HEADER_COLLAPSED_HEIGHT],
     extrapolate: 'clamp',
   });
-  const headerHeightInverse = scrollY.interpolate({
-    inputRange: [0, HEADER_EXPANDED_HEIGHT + HEADER_COLLAPSED_HEIGHT],
-    outputRange: [HEADER_COLLAPSED_HEIGHT, HEADER_EXPANDED_HEIGHT],
-    extrapolate: 'clamp',
-  });
 
   const headerTitleOpacity = scrollY.interpolate({
     inputRange: [0, HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT],
