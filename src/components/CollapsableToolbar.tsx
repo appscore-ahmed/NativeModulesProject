@@ -21,6 +21,11 @@ const CollapsableToolbar = () => {
     outputRange: [HEADER_EXPANDED_HEIGHT, HEADER_COLLAPSED_HEIGHT],
     extrapolate: 'clamp',
   });
+  const headerHeightInverse = scrollY.interpolate({
+    inputRange: [0, HEADER_EXPANDED_HEIGHT + HEADER_COLLAPSED_HEIGHT],
+    outputRange: [HEADER_COLLAPSED_HEIGHT, HEADER_EXPANDED_HEIGHT],
+    extrapolate: 'clamp',
+  });
 
   const headerTitleOpacity = scrollY.interpolate({
     inputRange: [0, HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT],
@@ -43,6 +48,7 @@ const CollapsableToolbar = () => {
           styles.header,
           {
             height: headerHeight,
+            zIndex: headerTitleOpacity,
           },
         ]}>
         <Animated.Image
@@ -54,7 +60,7 @@ const CollapsableToolbar = () => {
             height: '100%',
             opacity: headerTitleOpacity,
           }}
-          source={{uri: 'https://picsum.photos/400/300/?blur=3'}}
+          source={{uri: 'https://picsum.photos/400/300/'}}
           // resizeMode='stretch'
         />
         <Animated.Text
@@ -77,7 +83,7 @@ const CollapsableToolbar = () => {
             height: '100%',
             opacity: heroTitleOpacity,
           }}
-          source={{uri: 'https://picsum.photos/400/300/?blur=3'}}
+          source={{uri: 'https://picsum.photos/400/300/'}}
         />
         <Animated.Text
           style={{
@@ -96,7 +102,7 @@ const CollapsableToolbar = () => {
         contentContainerStyle={{
           padding: 16,
           paddingTop: HEADER_EXPANDED_HEIGHT,
-          backgroundColor: 'white',
+          backgroundColor: 'rgba(0,0,0,0.0)',
         }}
         onScroll={Animated.event(
           [
@@ -175,7 +181,7 @@ const CollapsableToolbar = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    backgroundColor: 'rgba(0,0,0,0.0)',
   },
   scrollContainer: {
     padding: 16,
@@ -187,7 +193,7 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH,
     top: 0,
     left: 0,
-    zIndex: 9999,
+    // zIndex: 9999,
   },
   title: {
     fontSize: 24,
