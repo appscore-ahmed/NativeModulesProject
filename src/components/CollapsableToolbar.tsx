@@ -7,6 +7,8 @@ import {
   ScrollView,
   Dimensions,
   StatusBar,
+  ImageBackground,
+  Image,
 } from 'react-native';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
@@ -112,6 +114,26 @@ const CollapsableToolbar = () => {
           {useNativeDriver: false},
         )}
         scrollEventThrottle={16}>
+        <ImageBackground
+          source={{uri: 'https://picsum.photos/id/1003/100/100/'}}
+          style={{
+            width: 100,
+            height: 100,
+            marginTop: 10 /* overflow:'hidden', borderRadius: 20  */,
+          }}
+          imageStyle={{borderRadius: 20}}>
+          <Image
+            source={{uri: 'https://picsum.photos/400/300/'}}
+            style={{
+              width: 20,
+              height: 20,
+              position: 'absolute',
+              bottom: 10,
+              left: 10,
+            }}
+          />
+        </ImageBackground>
+
         <Text style={styles.title}>This is Title</Text>
         <Text>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
