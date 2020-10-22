@@ -4,11 +4,11 @@ import {
   StyleSheet,
   Text,
   Animated,
-  ScrollView,
   Dimensions,
   StatusBar,
   ImageBackground,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
@@ -133,6 +133,66 @@ const CollapsableToolbar = () => {
             }}
           />
         </ImageBackground>
+
+        <TouchableOpacity
+          onPress={() => console.log('clicked')}
+          style={{
+            width: 327,
+            height: 144,
+            marginTop: 10,
+            flexDirection: 'row',
+            borderRadius: 12,
+            borderColor: 'rgba(0,0,0,0.1)',
+            elevation: 2,
+            borderWidth: 1,
+            backgroundColor: 'white',
+
+            /* shadowColor: '#000',
+            shadowOffset: { width: 0, height: 1 },
+            shadowOpacity: 0.8,
+            shadowRadius: 2,  
+            elevation: 5 */
+          }}>
+          <Image
+            source={{uri: 'https://picsum.photos/400/300/'}}
+            style={{
+              width: 24,
+              height: 24,
+              marginTop: 24,
+              marginStart: 16,
+            }}
+          />
+          <View style={{marginTop: 24, marginStart: 16}}>
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: 'bold',
+                color: 'rgb(72, 72, 72)',
+              }}>
+              Add a favourite club
+            </Text>
+            <Text
+              style={{
+                marginTop: 8,
+                fontSize: 14,
+                color: 'rgb(72, 72, 72)',
+                width: '55%',
+              }}
+              numberOfLines={2}>
+              Add a favourite club to help us suggest classes and content for
+              you.
+            </Text>
+            <Text
+              style={{
+                marginTop: 8,
+                fontSize: 18,
+                fontWeight: 'bold',
+                color: 'rgb(72, 72, 72)',
+              }}>
+              Explore clubs
+            </Text>
+          </View>
+        </TouchableOpacity>
 
         <Text style={styles.title}>This is Title</Text>
         <Text>
